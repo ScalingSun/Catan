@@ -5,12 +5,12 @@ namespace BackEnd
 {
     public class Map
     {
-        MapType maptype;
+        EnumMapType maptype;
         List<ITile> tiles;
         TileDistributor TileDistributor;
         NumberDistributor NumberDistributor;
         CoordsDistributor CoordsDistributor;
-        public Map(MapType maptype)
+        public Map(EnumMapType maptype)
         {
             tiles = new List<ITile>();
             this.maptype = maptype;
@@ -19,10 +19,6 @@ namespace BackEnd
             NumberDistributor = new NumberDistributor(maptype);
             CoordsDistributor = new CoordsDistributor(maptype);
 
-        }
-        public void AssignAll()
-        {
-            foreach
         }
     }
 }
