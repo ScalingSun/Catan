@@ -111,6 +111,7 @@ namespace CatanTool.Models
             {
                 graphic.FillPolygon(fillColour, hexagonPoints);
                 graphic.DrawLines(linePen, hexagonPoints);
+                graphic.DrawString(tile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.X - xMove / 2 * tile.Y - 10, 10 + yMove / 2 + yMove * tile.Y));
             }
         }
 
@@ -127,7 +128,7 @@ namespace CatanTool.Models
         {
             for (int i = 0; i < hexagonPoints.Length; i++)
             {
-                hexagonPoints[i] = new Point(hexagonPoints[i].X + x * xMove - (xMove / 2) * y, hexagonPoints[i].Y + yMove * y);
+                hexagonPoints[i] = new Point(hexagonPoints[i].X + x * xMove - (xMove / 2 * y), hexagonPoints[i].Y + yMove * y);
             }
 
             return hexagonPoints;
