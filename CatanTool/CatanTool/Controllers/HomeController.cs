@@ -16,7 +16,7 @@ namespace CatanTool.Controllers
 
         public IActionResult Index()
         {
-            PlayBoard pb = new PlayBoard();
+            Visualiser pb = new Visualiser();
             pb.Data = pb.DrawMap();
 
             return View(pb);

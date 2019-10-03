@@ -19,7 +19,7 @@ namespace CatanTool.Models
         Sheep = 4
     }
 
-    public class PlayBoard
+    public class Visualiser
     {
         public string Data { get; set; }
 
