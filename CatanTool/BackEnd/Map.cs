@@ -10,6 +10,7 @@ namespace BackEnd
         TileDistributor TileDistributor;
         NumberDistributor NumberDistributor;
         CoordsDistributor CoordsDistributor;
+
         public Map(MapType maptype)
         {
             tiles = new List<ITile>();
@@ -22,7 +23,7 @@ namespace BackEnd
         }
         public void AssignAll()
         {
-            foreach
+            throw new NotImplementedException();
         }
     }
 }
