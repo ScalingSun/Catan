@@ -6,7 +6,7 @@ namespace BackEnd
 {
     public class Shuffler
     {
-        umomgaesdsss
+        TimeoutException blijf gat pls
         //totally didnt copy paste this from the web 
         private Random rng = new Random();
 
