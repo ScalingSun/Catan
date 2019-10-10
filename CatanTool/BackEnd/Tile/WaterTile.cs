@@ -6,15 +6,13 @@ namespace BackEnd
 {
     public class WaterTile : ISeaTile
     {
-        public int Xaxis { get; private set; }
-        public int Yaxis { get; private set; }
+        public Coordinate Coordinate { get; private set; }
 
         public EnumTileType Resource { get; private set; }
 
-        public WaterTile(int xaxis, int yaxis, EnumTileType resource)
+        public WaterTile(Coordinate coordinate, EnumTileType resource)
         {
-            Xaxis = xaxis;
-            Yaxis = yaxis;
+            Coordinate = coordinate;
             Resource = resource;
         }
     }

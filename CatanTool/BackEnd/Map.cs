@@ -21,26 +21,26 @@ namespace BackEnd
             
         }
 
-        public int GetTileValue(Coordinate tileCoordinate)
-        {
-            foreach (ITile tile in tiles)
-            {
-                tile[tileCoordinate.Xaxis]
-            }
-            if ()
-            {
+        //public int GetTileValue(Coordinate tileCoordinate)
+        //{
+        //    foreach (ITile tile in tiles)
+        //    {
+        //        tile[tileCoordinate.Xaxis]
+        //    }
+        //    if ()
+        //    {
 
-            }
-        }
-        public ITile GetTile(Coordinate coordinate)
-        {
-            foreach (ITile tile in tiles)
-            {
-                if (tile.Yaxis )
-                {
+        //    }
+        //}
+        //public ITile GetTile(Coordinate coordinate)
+        //{
+        //    foreach (ITile tile in tiles)
+        //    {
+        //        if (tile.Yaxis )
+        //        {
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
     }
 }
