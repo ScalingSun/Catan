@@ -68,12 +68,26 @@ namespace BackEnd
             // Draw the hexagon.
             using (Graphics graphic = Graphics.FromImage(drawing))
             {
+                if (tile is HarbourTile)
+                {
+                    fillColour = GetResourceBrush(EnumTileType.Sea);
+                }
+
                 graphic.FillPolygon(fillColour, hexagonPoints);
                 graphic.DrawLines(linePen, hexagonPoints);
 
-                if (tile is LandTile landTile)
+                // If the tile is a LandTile, draw a number on top of it.
+                if (tile is LandTile)
                 {
+                    LandTile landTile = (LandTile)tile;
                     graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Xaxis - xMove / 2 * tile.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Yaxis));
+                }
+
+                if (tile is HarbourTile)
+                {
+                    fillColour = GetResourceBrush(tile.Resource);
+                    graphic.FillEllipse(fillColour, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Xaxis - xMove / 2 * tile.Yaxis - 25, yMove / 2 + yMove * tile.Yaxis, 50, 50);
+                    graphic.DrawEllipse(linePen, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Xaxis - xMove / 2 * tile.Yaxis - 25, yMove / 2 + yMove * tile.Yaxis, 50, 50);
                 }
             }
         }
@@ -138,11 +152,11 @@ namespace BackEnd
         /// <returns>The colour that belongs to a resource.</returns>
         private Brush GetResourceBrush(EnumTileType resource)
         {
-            if (resource == EnumTileType.Stone)
+            if (resource == EnumTileType.Stone || resource == EnumTileType.TwoStoneHarbour)
             {
                 return Brushes.SandyBrown;
             }
-            if (resource == EnumTileType.Ore)
+            if (resource == EnumTileType.Ore || resource == EnumTileType.TwoOreHarbour)
             {
                 return Brushes.DarkGray;
             }
@@ -150,7 +164,7 @@ namespace BackEnd
             {
                 return Brushes.LightSalmon;
             }
-            if (resource == EnumTileType.Wheat)
+            if (resource == EnumTileType.Wheat || resource == EnumTileType.TwoWheatHarbour)
             {
                 return Brushes.Yellow;
             }
@@ -158,11 +172,11 @@ namespace BackEnd
             {
                 return Brushes.Cyan;
             }
-            if (resource == EnumTileType.Meadow)
+            if (resource == EnumTileType.Meadow || resource == EnumTileType.TwoMeadowHarbour)
             {
                 return Brushes.LawnGreen;
             }
-            if (resource == EnumTileType.Wood)
+            if (resource == EnumTileType.Wood || resource == EnumTileType.TwoWoodHarbour)
             {
                 return Brushes.DarkGreen;
             }
