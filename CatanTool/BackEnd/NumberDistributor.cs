@@ -7,10 +7,10 @@ namespace BackEnd
     public class NumberDistributor
     {
         public List<int> numberlist;
-        public NumberDistributor(MapType maptype)
+        public NumberDistributor(EnumMapType maptype)
         {
             Shuffler shuffler = new Shuffler();
-            if (maptype == MapType.small)
+            if (maptype == EnumMapType.small)
             {
                 numberlist.Add(2);
                 numberlist.Add(3);

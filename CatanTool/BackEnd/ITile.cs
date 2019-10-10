@@ -4,10 +4,10 @@ using System.Text;
 
 namespace BackEnd
 {
-    interface ITile
+    public interface ITile
     {
         int Xaxis { get; }
         int Yaxis { get; }
-        TileType Resource { get; }
+        EnumTileType Resource { get; }
     }
 }
