@@ -6,7 +6,6 @@ namespace BackEnd
 {
    public enum EnumMapType
     {
-        //figure out how many tiles a "big" map contains pls!
-        small = 37, big
+        small = 7, big = 8
     }
 }

@@ -7,7 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatanTool", "CatanTool\Cata
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BackEnd", "BackEnd\BackEnd.csproj", "{7251B4D6-BD7B-496E-A262-8069D9E2451B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CatanUnitTests", "CatanUnitTests\CatanUnitTests.csproj", "{CAB375B3-3140-4683-8230-F4721A9989CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CatanUnitTests", "CatanUnitTests\CatanUnitTests.csproj", "{CAB375B3-3140-4683-8230-F4721A9989CE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7251B4D6-BD7B-496E-A262-8069D9E2451B} = {7251B4D6-BD7B-496E-A262-8069D9E2451B}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
