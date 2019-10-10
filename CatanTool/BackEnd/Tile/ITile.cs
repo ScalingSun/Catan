@@ -6,8 +6,7 @@ namespace BackEnd
 {
     public interface ITile
     {
-        int Xaxis { get; }
-        int Yaxis { get; }
+        Coordinate Coordinate { get; }
         EnumTileType Resource { get; }
     }
 }
