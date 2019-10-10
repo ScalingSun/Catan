@@ -6,6 +6,18 @@ namespace BackEnd
 {
     public enum EnumTileType
     {
-        Desert,Ore,Wheat,Meadow,Wood,Stone,Sea,OneToThreeHarbour,TwoMeadowHarbour, TwoWoodHarbour,TwoOreHarbour,TwoWheatHarbour,TwoStoneHarbour
+        Desert,
+        Ore,
+        Wheat,
+        Meadow,
+        Wood,
+        Stone,
+        Sea,
+        OneToThreeHarbour,
+        TwoMeadowHarbour,
+        TwoWoodHarbour,
+        TwoOreHarbour,
+        TwoWheatHarbour,
+        TwoStoneHarbour
     }
 }

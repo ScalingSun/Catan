@@ -6,58 +6,17 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CatanTool.Models
+namespace BackEnd
 {
-    public enum TEMPResourceEnum
-    {
-        Desert = -2,
-        Ocean = -1,
-        Clay = 0,
-        Coal = 1,
-        Wood = 2,
-        Grain = 3,
-        Sheep = 4
-    }
-
     public class Visualiser
     {
         public string Data { get; set; }
-
-        // Test list of tiles for visualiser.
-        private List<Tile> Tiles = new List<Tile>
-        {
-            new Tile(0,0, TEMPResourceEnum.Ocean), new Tile(0,1, TEMPResourceEnum.Ocean),
-            new Tile(0,2, TEMPResourceEnum.Ocean), new Tile(0,3, TEMPResourceEnum.Ocean),
-
-            new Tile(1,0, TEMPResourceEnum.Ocean),
-            new Tile(1,1), new Tile(1,2), new Tile(1,3),
-            new Tile(1,4, TEMPResourceEnum.Ocean),
-
-            new Tile(2,0, TEMPResourceEnum.Ocean),
-            new Tile(2,1), new Tile(2,2), new Tile(2,3), new Tile(2,4),
-            new Tile(2,5, TEMPResourceEnum.Ocean),
-
-            new Tile(3,0, TEMPResourceEnum.Ocean),
-            new Tile(3,1), new Tile(3,2), new Tile(3,3, TEMPResourceEnum.Desert), new Tile(3,4), new Tile(3,5),
-            new Tile(3,6, TEMPResourceEnum.Ocean),
-
-            new Tile(4,1, TEMPResourceEnum.Ocean),
-            new Tile(4,2), new Tile(4,3), new Tile(4,4), new Tile(4,5),
-            new Tile(4,6, TEMPResourceEnum.Ocean),
-
-            new Tile(5,2, TEMPResourceEnum.Ocean),
-            new Tile(5,3), new Tile(5,4), new Tile(5,5),
-            new Tile(5,6, TEMPResourceEnum.Ocean),
-
-            new Tile(6,3, TEMPResourceEnum.Ocean), new Tile(6,4, TEMPResourceEnum.Ocean),
-            new Tile(6,5, TEMPResourceEnum.Ocean), new Tile(6,6, TEMPResourceEnum.Ocean)
-        };
 
         /// <summary>
         /// Draw all tiles onto a bitmap image.
         /// </summary>
         /// <returns>The map image as a string of bytes.</returns>
-        public string DrawMap()
+        public string DrawMap(IEnumerable<ITile> tiles)
         {
             Bitmap drawing = new Bitmap(1000, 1000);
             using (Graphics graphic = Graphics.FromImage(drawing))
@@ -65,7 +24,7 @@ namespace CatanTool.Models
                 graphic.Clear(Color.DarkCyan);
             }
 
-            foreach (Tile tile in Tiles)
+            foreach (ITile tile in tiles)
             {
                 DrawHex(tile, drawing);
             }
@@ -78,7 +37,7 @@ namespace CatanTool.Models
         /// </summary>
         /// <param name="tile">The tile that is being drawn.</param>
         /// <param name="drawing">The map the tile is being drawn on.</param>
-        private void DrawHex(Tile tile, Bitmap drawing)
+        private void DrawHex(ITile tile, Bitmap drawing)
         {
             // Base points for a hexagon.
             Point[] hexagonPoints = new Point[]
@@ -100,10 +59,10 @@ namespace CatanTool.Models
             hexagonPoints = ChangeMapStartPoint(10, drawing.Width / 2 - 2 * yMove, hexagonPoints);
 
             // Change position of where the hexagon will be drawn, according to a tile's coordinates.
-            hexagonPoints = ChangeHexagonPoint(tile.Y, tile.X, yMove, xMove, hexagonPoints);
+            hexagonPoints = ChangeHexagonPoint(tile.Yaxis, tile.Xaxis, yMove, xMove, hexagonPoints);
 
             // Set colour of the fill and lines.
-            Brush fillColour = TEMPGetResourceBrush(tile.Resource);
+            Brush fillColour = GetResourceBrush(tile.Resource);
             Pen linePen = new Pen(Brushes.Black, 2f);
 
             // Draw the hexagon.
@@ -111,7 +70,11 @@ namespace CatanTool.Models
             {
                 graphic.FillPolygon(fillColour, hexagonPoints);
                 graphic.DrawLines(linePen, hexagonPoints);
-                graphic.DrawString(tile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.X - xMove / 2 * tile.Y - 10, 10 + yMove / 2 + yMove * tile.Y));
+
+                if (tile is LandTile landTile)
+                {
+                    graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Xaxis - xMove / 2 * tile.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Yaxis));
+                }
             }
         }
 
@@ -168,35 +131,38 @@ namespace CatanTool.Models
             return data;
         }
 
-        // THIS METHOD IS ONLY FOR THE VISUAL DEMONSTRATION.
-        // Remove this when tiles are being generated properly.
-        private Brush TEMPGetResourceBrush(TEMPResourceEnum resource)
+        /// <summary>
+        /// Get the colour for a certain resource.
+        /// </summary>
+        /// <param name="resource">A resource that you need a colour of.</param>
+        /// <returns>The colour that belongs to a resource.</returns>
+        private Brush GetResourceBrush(EnumTileType resource)
         {
-            if (resource == TEMPResourceEnum.Clay)
+            if (resource == EnumTileType.Stone)
             {
                 return Brushes.SandyBrown;
             }
-            if (resource == TEMPResourceEnum.Coal)
+            if (resource == EnumTileType.Ore)
             {
                 return Brushes.DarkGray;
             }
-            if (resource == TEMPResourceEnum.Desert)
+            if (resource == EnumTileType.Desert)
             {
                 return Brushes.LightSalmon;
             }
-            if (resource == TEMPResourceEnum.Grain)
+            if (resource == EnumTileType.Wheat)
             {
                 return Brushes.Yellow;
             }
-            if (resource == TEMPResourceEnum.Ocean)
+            if (resource == EnumTileType.Sea)
             {
                 return Brushes.Cyan;
             }
-            if (resource == TEMPResourceEnum.Sheep)
+            if (resource == EnumTileType.Meadow)
             {
                 return Brushes.LawnGreen;
             }
-            if (resource == TEMPResourceEnum.Wood)
+            if (resource == EnumTileType.Wood)
             {
                 return Brushes.DarkGreen;
             }

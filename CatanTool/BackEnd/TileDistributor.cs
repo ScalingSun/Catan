@@ -50,10 +50,10 @@ namespace BackEnd
             {
                 Tiletypes.Add(EnumTileType.Sea);
             }
-            for (int i = 0; i < 9; i++)
+            /*for (int i = 0; i < 9; i++)
             {
                 Tiletypes.Add(EnumTileType.Harbour);
-            }
+            }*/
             for (int i = 0; i < 4; i++)
             {
                 Tiletypes.Add(EnumTileType.Wood);
@@ -73,10 +73,10 @@ namespace BackEnd
             {
                 Tiletypes.Add(EnumTileType.Sea);
             }
-            for (int i = 0; i < 11; i++)
+            /*for (int i = 0; i < 11; i++)
             {
                 Tiletypes.Add(EnumTileType.Harbour);
-            }
+            }*/
             for (int i = 0; i < 6; i++)
             {
                 Tiletypes.Add(EnumTileType.Wood);
