@@ -48,5 +48,16 @@ namespace BackEnd
             }
             return ValueNumber;
         }
+        public int GetNumber(List<ITile> AdjacentsTiles)
+        {
+            foreach (LandTile landTile in AdjacentsTiles)
+            {
+                if (landTile.Value != 8 && landTile.Value != 6)
+                {
+                    
+                    
+                }
+            }
+        }
     }
 }
