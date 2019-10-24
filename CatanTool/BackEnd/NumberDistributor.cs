@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BackEnd
@@ -48,13 +49,49 @@ namespace BackEnd
             }
             return ValueNumber;
         }
+        public int GetNumber(List<int> omitNumberList)
+        {
+            int ValueNumber = 0;
+            foreach (int number in numberlist)
+            {
+                foreach (int omitNumber in omitNumberList)
+                {
+                    if (number != omitNumber)
+                    {
+                        ValueNumber = number;
+                        numberlist.Remove(number);
+                        return ValueNumber;
+                    }
+                }
+            }
+            return ValueNumber;
+        }
+        /// <summary>
+        /// get a list of numbers, and removes it from further use.
+        /// </summary>
+        /// <returns></returns>
+        public List<int> GetListNumbersOf(List<int> numberList)
+        {
+            List<int> numberListResult = new List<int>();
+            foreach (int numberListFromClass in numberlist.ToList())
+            {
+                foreach (int numberListFromParameter in numberList.ToList())
+                {
+                    if (numberListFromClass == numberListFromParameter)
+                    {
+                        numberListResult.Add(numberListFromClass);
+                        numberlist.Remove(numberListFromClass);
+                    }
+                }
+            }
+            return numberListResult;
+        }
         public int GetNumber(List<ITile> AdjacentsTiles)
         {
             foreach (LandTile landTile in AdjacentsTiles)
             {
                 if (landTile.Value != 8 && landTile.Value != 6)
                 {
-                    
                     
                 }
             }
