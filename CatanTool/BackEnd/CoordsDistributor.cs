@@ -25,9 +25,12 @@ namespace BackEnd
                 new Coordinate(7,1), new Coordinate(7,2), new Coordinate(7,3),new Coordinate(7,4),
             });
         }
-        public int GetOneRandomCoordinate()
+        public Coordinate GetOneRandomCoordinate()
         {
-            return 1;
+            Random random = new Random();
+            Coordinate randomCoordinate = coords[random.Next(0, coords.Count-1)];
+            coords.Remove(randomCoordinate);
+            return randomCoordinate;
         }
 
 
