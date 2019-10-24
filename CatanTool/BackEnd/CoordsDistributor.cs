@@ -33,9 +33,5 @@ namespace BackEnd
             return randomCoordinate;
         }
 
-
-
-
-
     }
 }
