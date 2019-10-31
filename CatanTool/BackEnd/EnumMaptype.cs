@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BackEnd
 {
-   public enum EnumMapType
+   public enum MapType
     {
         small = 7, big = 8
     }
