@@ -52,7 +52,7 @@ namespace BackEnd
             }
             for (int i = 0; i < 9; i++)
             {
-                Tiletypes.Add(EnumTileType.Harbour);
+                Tiletypes.Add(EnumTileType.OneToThreeHarbour);
             }
             for (int i = 0; i < 4; i++)
             {
@@ -75,7 +75,7 @@ namespace BackEnd
             }
             for (int i = 0; i < 11; i++)
             {
-                Tiletypes.Add(EnumTileType.Harbour);
+                Tiletypes.Add(EnumTileType.OneToThreeHarbour);
             }
             for (int i = 0; i < 6; i++)
             {
