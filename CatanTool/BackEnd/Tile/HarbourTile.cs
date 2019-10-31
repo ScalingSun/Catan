@@ -8,9 +8,9 @@ namespace BackEnd
     {
         public Coordinate Coordinate { get; private set; }
 
-        public EnumTileType Resource { get; private set; }
+        public EnumLandTileType Resource { get; private set; }
 
-        public HarbourTile(Coordinate coordinate, EnumTileType resource)
+        public HarbourTile(Coordinate coordinate, EnumLandTileType resource)
         {
             Coordinate = coordinate;
             Resource = resource;

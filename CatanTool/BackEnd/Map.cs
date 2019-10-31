@@ -20,7 +20,7 @@ namespace BackEnd
             CoordsDistributor = new CoordsDistributor(maptype);
             for (int tileNum = 0; tileNum < (int)maptype; tileNum++)
             {
-                tiles.Add(new )
+                
             }
         }
 
@@ -72,15 +72,19 @@ namespace BackEnd
             foreach (int num6Or8 in NumberDistributor.GetListNumbersOf(new List<int>() { 6, 8 }))
             {
                 int number = num6Or8;
-                EnumTileType tileType = TileDistributor.GetOneTileType();
+                EnumLandTileType tileType = TileDistributor.GetOneLandTileType();//should be tiledistributor.GetOneLANDtiletype.
                 Coordinate coordinate = CoordsDistributor.GetOneRandomLandCoordinate();
-                            
-                if (!AdjacentsTilesHas6or8(GetAdjacentsTiles(coordinate)))
-                {
-                    landTiles8And6.Add(new LandTile(coordinate, tileType, number));
-                }
+                bool numberIsntAssignedInTile = true;
 
-                
+                while (numberIsntAssignedInTile)
+                {
+                    if (!AdjacentsTilesHas6or8(GetAdjacentsTiles(coordinate)))
+                    {
+                        landTiles8And6.Add(new LandTile(coordinate, tileType, number));
+                        numberIsntAssignedInTile = false;
+                    }
+                   coordinate = CoordsDistributor.GetOneRandomLandCoordinate();            
+                }
             }
             return landTiles8And6;
         }

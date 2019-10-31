@@ -7,6 +7,6 @@ namespace BackEnd
     public interface ITile
     {
         Coordinate Coordinate { get; }
-        EnumTileType Resource { get; }
+        EnumLandTileType Resource { get; }
     }
 }
