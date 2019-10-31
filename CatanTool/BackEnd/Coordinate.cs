@@ -8,7 +8,8 @@ namespace BackEnd
     {
         public int Xaxis { get; private set; }
         public int Yaxis { get; private set; }
-        public Coordinate(int Yaxis,int Xaxis)
+        public EnumCoordinateType CoordinateType { get; private set; }
+        public Coordinate(int Yaxis,int Xaxis, EnumCoordinateType coordinateType)
         {
             this.Yaxis = Yaxis;
             this.Xaxis = Xaxis;
