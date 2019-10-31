@@ -77,9 +77,8 @@ namespace BackEnd
                 graphic.DrawLines(linePen, hexagonPoints);
 
                 // If the tile is a LandTile, draw a number on top of it.
-                if (tile is LandTile)
+                if (tile is LandTile landTile)
                 {
-                    LandTile landTile = (LandTile)tile;
                     graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Xaxis - xMove / 2 * tile.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Yaxis));
                 }
 
@@ -162,7 +161,7 @@ namespace BackEnd
             }
             if (resource == EnumTileType.Desert)
             {
-                return Brushes.LightSalmon;
+                return Brushes.Khaki;
             }
             if (resource == EnumTileType.Wheat || resource == EnumTileType.TwoWheatHarbour)
             {
@@ -170,7 +169,7 @@ namespace BackEnd
             }
             if (resource == EnumTileType.Sea)
             {
-                return Brushes.Cyan;
+                return Brushes.LightSeaGreen;
             }
             if (resource == EnumTileType.Meadow || resource == EnumTileType.TwoMeadowHarbour)
             {
