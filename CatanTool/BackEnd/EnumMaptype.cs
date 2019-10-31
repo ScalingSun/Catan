@@ -7,5 +7,6 @@ namespace BackEnd
    public enum MapType
     {
         small = 7, big = 8
+
     }
 }
