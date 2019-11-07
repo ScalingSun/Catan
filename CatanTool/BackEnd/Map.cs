@@ -86,14 +86,35 @@ namespace BackEnd
         }
         private List<ITile> CreateRemainingNumbersForTiles()
         {
-            //foreach(int number in NumberDistributor.)
-            return null;
+            List<ITile> landTiles = new List<ITile>();
+
+            List<int> numbers = NumberDistributor.GetNumbers();
+            ITileType tileType = TileDistributor.GetOneRandomTileTypeOfTypeSort(TypeSort.Land);
+            Coordinate coordinate = CoordsDistributor.GetOneRandomLandCoordinate();
+            foreach (int number in numbers)
+            {
+                ITile newTile = new LandTile(coordinate, tileType, number);
+                landTiles.Add(newTile);
+            }
+            return landTiles;
+        }
+        private ITile CreateDesertTile()
+        {
+            ITileType tileType = TileDistributor.GetDesertTileType();
+            Coordinate coordinate = CoordsDistributor.GetOneRandomLandCoordinate();
+            int number = NumberDistributor.Get7FromList();
+
+            ITile desertTile = new LandTile(coordinate, tileType, number);
+            return desertTile;
         }
         public List<ITile> createtiles(EnumMapType type)
         {
             List<ITile> result = new List<ITile>();
-            result = CreateLandTilesFor6And8();
-
+            result.Add(CreateDesertTile());
+            result.AddRange(CreateLandTilesFor6And8());
+            result.AddRange(CreateRemainingNumbersForTiles());
+            //result.AddRange(CreateHarbourTiles());
+            //result.AddRange(CreateSeaTiles());
             return result;
         }
     }

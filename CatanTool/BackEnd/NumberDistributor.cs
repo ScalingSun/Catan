@@ -22,6 +22,7 @@ namespace BackEnd
                 numberlist.Add(5);
                 numberlist.Add(6);
                 numberlist.Add(6);
+                numberlist.Add(7);
                 numberlist.Add(8);
                 numberlist.Add(8);
                 numberlist.Add(9);
@@ -38,16 +39,12 @@ namespace BackEnd
         /// gets a number from the list, and removes it from further use.
         /// </summary>
         /// <returns></returns>
-        public int GetNumber()
+        public List<int> GetNumbers()
         {
-            int ValueNumber = 0;
-            foreach(int number in numberlist)
-            {
-                ValueNumber = number;
-                numberlist.Remove(number);
-                break;
-            }
-            return ValueNumber;
+            List<int> result = new List<int>();
+            result.AddRange(numberlist);
+            numberlist.Clear();
+            return result;
         }
         public int GetNumber(List<int> omitNumberList)
         {
@@ -85,6 +82,20 @@ namespace BackEnd
                 }
             }
             return numberListResult;
+        }
+        public int Get7FromList()
+        {
+            int result = 0;
+            foreach(int number in numberlist.ToList())
+            {
+                if(number == 7)
+                {
+                    numberlist.Remove(number);
+                    result = number;
+                    break;
+                }
+            }
+            return result;
         }
 
     }

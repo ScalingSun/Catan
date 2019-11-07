@@ -45,6 +45,20 @@ namespace BackEnd
             }
             return resultTileTypeList;
         }
+        public ITileType GetDesertTileType()
+        {
+            ITileType result = null;
+            foreach (ITileType type in Tiletypes.ToList())
+            {
+                if(type.Type == Type.Desert)
+                {
+                    Tiletypes.Remove(type);
+                    result = type;
+                    break;
+                }
+            }
+            return result;
+        }
         private void RemoveTile(ITileType tileType)
         {
             Tiletypes.Remove(tileType);
