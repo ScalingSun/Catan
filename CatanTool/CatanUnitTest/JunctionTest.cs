@@ -12,25 +12,70 @@ namespace CatanUnitTest
         public void FindSingleJunction()
         {
             // Arrange
-            List<ITile> threeAdjecentTiles = new List<ITile>
+            List<ITile> tiles = new List<ITile>
             {
                 new LandTile(new Coordinate(0,0,EnumCoordinateType.Land), EnumLandTileType.Desert, 1),
-                new LandTile(new Coordinate(0,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 1),
-                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 1)
+                new LandTile(new Coordinate(0,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 2),
+                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 3)
             };
 
-            Map map = new Map(threeAdjecentTiles);
+            Map map = new Map(tiles);
 
-            List<Junction> expected = new List<Junction> { new Junction(threeAdjecentTiles) };
+            int expectedCount = 5;
 
             // Act
-            List<Junction> actual = map.FindAllJunctions(threeAdjecentTiles);
+            List<Junction> actual = map.FindAllJunctions(tiles);
 
             // Assert
-            if (actual.Count == 1)
+            Assert.Equal(expectedCount, actual.Count);
+        }
+
+        [Fact]
+        public void NoJunctionFound()
+        {
+            // Arrange
+            List<ITile> tiles = new List<ITile>
             {
-                Assert.True(true);
-            }
+                new LandTile(new Coordinate(0,0,EnumCoordinateType.Land), EnumLandTileType.Desert, 1),
+                new LandTile(new Coordinate(4,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 2),
+                new LandTile(new Coordinate(1,4,EnumCoordinateType.Land), EnumLandTileType.Desert, 3)
+            };
+
+            Map map = new Map(tiles);
+
+            int expectedCount = 0;
+
+            // Act
+            List<Junction> actual = map.FindAllJunctions(tiles);
+
+            // Assert
+            Assert.Equal(expectedCount, actual.Count);
+        }
+
+        [Fact]
+        public void MultipleMapJunctions()
+        {
+            // Arrange
+            List<ITile> tiles = new List<ITile>
+            {
+                new LandTile(new Coordinate(0,0,EnumCoordinateType.Land), EnumLandTileType.Desert, 1),
+                new LandTile(new Coordinate(0,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 2),
+                new LandTile(new Coordinate(1,0,EnumCoordinateType.Land), EnumLandTileType.Desert, 3),
+                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 4),
+                new LandTile(new Coordinate(1,2,EnumCoordinateType.Land), EnumLandTileType.Desert, 5),
+                new LandTile(new Coordinate(2,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 6),
+                new LandTile(new Coordinate(2,2,EnumCoordinateType.Land), EnumLandTileType.Desert, 7)
+            };
+
+            Map map = new Map(tiles);
+
+            int expectedCount = 12;
+
+            // Act
+            List<Junction> actual = map.FindAllJunctions(tiles);
+
+            // Assert
+            Assert.Equal(expectedCount, actual.Count);
         }
     }
 }
