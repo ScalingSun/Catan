@@ -7,6 +7,7 @@ namespace BackEnd
     {
         EnumMapType maptype;
         List<ITile> tiles;
+        List<Junction> junctions;
         TileDistributor TileDistributor;
         NumberDistributor NumberDistributor;
         CoordsDistributor CoordsDistributor;
@@ -23,6 +24,39 @@ namespace BackEnd
                 
             }
         }
+        public Map(List<ITile> inTiles)
+        {
+            tiles = inTiles;
+        }
+
+        public List<Junction> FindAllJunctions(List<ITile> mapTiles)
+        {
+            List<Junction> foundJunctions = new List<Junction>();
+
+            foreach (ITile originTile in mapTiles)
+            {
+                List<ITile> adjecentTiles = GetAdjacentsTiles(originTile.Coordinate);
+                List<ITile> secondaryAdjecentTiles = GetAdjacentsTiles(adjecentTiles[0].Coordinate);
+                
+                foreach(ITile adjecentTile in adjecentTiles)
+                {
+                    foreach (ITile secondaryAdjecentTile in secondaryAdjecentTiles)
+                    {
+                        if (adjecentTile == secondaryAdjecentTile && (adjecentTile != originTile || secondaryAdjecentTile != originTile))
+                        {
+                            Junction junction = new Junction(new List<ITile> { originTile, adjecentTile, secondaryAdjecentTile });
+
+                            if (!foundJunctions.Contains(junction))
+                            {
+                                foundJunctions.Add(junction);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return foundJunctions;
+        }
 
         public bool AdjacentsTilesHas6or8(List<ITile> AdjacentsTiles)
         {
@@ -35,6 +69,7 @@ namespace BackEnd
             }
             return false;
         }
+
         public List<ITile> GetAdjacentsTiles(Coordinate Coordinate)
         {
             List<ITile> junctionTiles = new List<ITile>();
