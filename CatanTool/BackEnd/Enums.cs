@@ -12,14 +12,15 @@ namespace BackEnd
     //{
     //    OneToThreeHarbour, TwoMeadowHarbour, TwoWoodHarbour, TwoOreHarbour, TwoWheatHarbour, TwoStoneHarbour
     //}
-    public enum Type
+    public enum EnumType
     {
         Desert, Ore, Wheat, Meadow, Wood, Stone, OneToThreeHarbour, TwoMeadowHarbour, TwoWoodHarbour, TwoOreHarbour, TwoWheatHarbour, TwoStoneHarbour, Water
     }
-    public enum TypeSort
+    public enum EnumTypeSort
     {
         Land,
-        Sea
+        Sea,
+        Harbour,
     }
     public enum EnumMapType
     {
@@ -28,6 +29,7 @@ namespace BackEnd
     public enum EnumCoordinateType
     {
         Sea = 1,
-        Land = 2
+        Land = 2,
+        Harbour = 3,
     }
 }

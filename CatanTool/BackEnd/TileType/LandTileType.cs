@@ -6,9 +6,9 @@ namespace BackEnd
 {
     public class LandTileType : TileType
     {
-        public LandTileType(Type type) : base(type)
+        public LandTileType(EnumType type) : base(type)
         {
-            TypeSort = TypeSort.Land;
+            TypeSort = EnumTypeSort.Land;
         }
     }
 }

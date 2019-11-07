@@ -6,9 +6,10 @@ namespace BackEnd
 {
     public class HarbourTileType : TileType
     {
-        public HarbourTileType(Type type) : base(type)
+        public HarbourTileType(EnumType type) : base(type)
         {
-            TypeSort = TypeSort.Sea;
+            TypeSort = EnumTypeSort.Harbour;
         }
+
     }
 }

@@ -6,9 +6,9 @@ namespace BackEnd
 {
     public class WaterTileType : TileType
     {
-        public WaterTileType(Type type) : base(type)
+        public WaterTileType(EnumType type) : base(type)
         {
-            TypeSort = TypeSort.Sea;
+            TypeSort = EnumTypeSort.Sea;
         }
     }
 }

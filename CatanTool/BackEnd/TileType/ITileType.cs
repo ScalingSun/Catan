@@ -6,7 +6,7 @@ namespace BackEnd
 {
     public interface ITileType
     {
-        Type Type { get; }
-        TypeSort TypeSort { get; }
+        EnumType Type { get; }
+        EnumTypeSort TypeSort { get; }
     }
 }

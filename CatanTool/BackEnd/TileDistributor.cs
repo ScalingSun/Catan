@@ -7,14 +7,14 @@ namespace BackEnd
     public class TileDistributor
     {
         List<ITileType> Tiletypes;
-       public TileDistributor(EnumMapType type)
+        public TileDistributor(EnumMapType type)
         {
             Tiletypes = new List<ITileType>();
-            if(type == EnumMapType.small)
+            if (type == EnumMapType.small)
             {
                 SetTileTypes();
             }
-            if(type == EnumMapType.big)
+            if (type == EnumMapType.big)
             {
                 SetLargeTileTypes();
             }
@@ -24,7 +24,7 @@ namespace BackEnd
         /// Gets one tile, and removes it from its total list.
         /// </summary>
         /// <returns></returns>
-        public ITileType GetOneRandomTileTypeOfTypeSort(TypeSort typeSort)
+        public ITileType GetOneRandomTileTypeOfTypeSort(EnumTypeSort typeSort)
         {
             IList<ITileType> sortedListTileType = GetListTileTypesOfTypeSort(typeSort);
             Random R = new Random();
@@ -33,7 +33,7 @@ namespace BackEnd
             RemoveTile(result);
             return result;
         }
-        public IList<ITileType> GetListTileTypesOfTypeSort(TypeSort typeSort)
+        public IList<ITileType> GetListTileTypesOfTypeSort(EnumTypeSort typeSort)
         {
             List<ITileType> resultTileTypeList = new List<ITileType>();
             foreach (ITileType tileTypeInList in Tiletypes)
@@ -50,7 +50,7 @@ namespace BackEnd
             ITileType result = null;
             foreach (ITileType type in Tiletypes.ToList())
             {
-                if(type.Type == Type.Desert)
+                if (type.Type == EnumType.Desert)
                 {
                     Tiletypes.Remove(type);
                     result = type;
@@ -75,48 +75,55 @@ namespace BackEnd
         {
             for (int i = 0; i < 18; i++)
             {
-                Tiletypes.Add(new WaterTileType(Type.Water));
+                Tiletypes.Add(new WaterTileType(EnumType.Water));
             }
-            for (int i = 0; i < 9; i++)
-            {
-                Tiletypes.Add(new HarbourTileType(Type.OneToThreeHarbour));
-            }
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoMeadowHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoOreHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoStoneHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoWheatHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoWoodHarbour));
+
             for (int i = 0; i < 4; i++)
             {
-                Tiletypes.Add(new LandTileType(Type.Wood));
-                Tiletypes.Add(new LandTileType(Type.Meadow));
-                Tiletypes.Add(new LandTileType(Type.Wheat));
+                Tiletypes.Add(new LandTileType(EnumType.Wood));
+                Tiletypes.Add(new LandTileType(EnumType.Meadow));
+                Tiletypes.Add(new LandTileType(EnumType.Wheat));
             }
             for (int i = 0; i < 3; i++)
             {
-                Tiletypes.Add(new LandTileType(Type.Ore));
-                Tiletypes.Add(new LandTileType(Type.Stone));
+                Tiletypes.Add(new LandTileType(EnumType.Ore));
+                Tiletypes.Add(new LandTileType(EnumType.Stone));
             }
-            Tiletypes.Add(new LandTileType(Type.Desert));
+            Tiletypes.Add(new LandTileType(EnumType.Desert));
         }
         private void SetLargeTileTypes()// declaring all tiles for 6P map.
         {
             for (int i = 0; i < 22; i++)
             {
-                Tiletypes.Add(new WaterTileType(Type.Water));
+                Tiletypes.Add(new WaterTileType(EnumType.Water));
             }
             for (int i = 0; i < 11; i++)
             {
-                Tiletypes.Add(new HarbourTileType(Type.OneToThreeHarbour));
+                Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
             }
             for (int i = 0; i < 6; i++)
             {
-                Tiletypes.Add(new LandTileType(Type.Wood));
-                Tiletypes.Add(new LandTileType(Type.Meadow));
-                Tiletypes.Add(new LandTileType(Type.Wheat));
+                Tiletypes.Add(new LandTileType(EnumType.Wood));
+                Tiletypes.Add(new LandTileType(EnumType.Meadow));
+                Tiletypes.Add(new LandTileType(EnumType.Wheat));
             }
             for (int i = 0; i < 5; i++)
             {
-                Tiletypes.Add(new LandTileType(Type.Ore));
-                Tiletypes.Add(new LandTileType(Type.Stone));
+                Tiletypes.Add(new LandTileType(EnumType.Ore));
+                Tiletypes.Add(new LandTileType(EnumType.Stone));
             }
-            Tiletypes.Add(new LandTileType(Type.Desert));
-            Tiletypes.Add(new LandTileType(Type.Desert));
+            Tiletypes.Add(new LandTileType(EnumType.Desert));
+            Tiletypes.Add(new LandTileType(EnumType.Desert));
         }
     }
 }

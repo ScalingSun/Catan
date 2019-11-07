@@ -13,7 +13,7 @@ namespace BackEnd
         public WaterTile(Coordinate coordinate, ITileType resource)
         {
             Coordinate = coordinate;
-            Resource = new WaterTileType(Type.Water);
+            Resource = new WaterTileType(EnumType.Water);
         }
     }
 }

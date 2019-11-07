@@ -6,10 +6,10 @@ namespace BackEnd
 {
     public abstract class TileType : ITileType
     {
-        public Type Type { get; private set; }
-        public TypeSort TypeSort { get; protected set; }
+        public EnumType Type { get; private set; }
+        public EnumTypeSort TypeSort { get; protected set; }
 
-        public TileType(Type type)
+        public TileType(EnumType type)
         {
             Type = type;
         }
