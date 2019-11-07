@@ -7,7 +7,7 @@ namespace BackEnd
 {
     public class NumberDistributor
     {
-        public List<int> numberlist;
+        public List<int> numberlist = new List<int>();
         public NumberDistributor(EnumMapType maptype)
         {
             Shuffler shuffler = new Shuffler();

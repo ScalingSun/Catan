@@ -6,10 +6,10 @@ namespace BackEnd
 {
     public class TileDistributor
     {
-        List<EnumLandTileType> Tiletypes;
+        List<ITileType> Tiletypes;
        public TileDistributor(EnumMapType type)
         {
-            Tiletypes = new List<EnumLandTileType>();
+            Tiletypes = new List<ITileType>();
             if(type == EnumMapType.small)
             {
                 SetTileTypes();
@@ -24,15 +24,28 @@ namespace BackEnd
         /// Gets one tile, and removes it from its total list.
         /// </summary>
         /// <returns></returns>
-        public EnumLandTileType GetOneLandTileType()
+        public ITileType GetOneRandomTileTypeOfTypeSort(TypeSort typeSort)
         {
+            IList<ITileType> sortedListTileType = GetListTileTypesOfTypeSort(typeSort);
             Random R = new Random();
-            int randomnumber = R.Next(1, Tiletypes.Count);
-            EnumLandTileType result = Tiletypes[randomnumber];
+            int randomnumber = R.Next(1, sortedListTileType.Count);
+            ITileType result = sortedListTileType[randomnumber];
             RemoveTile(result);
             return result;
         }
-        private void RemoveTile(EnumLandTileType tileType)
+        public IList<ITileType> GetListTileTypesOfTypeSort(TypeSort typeSort)
+        {
+            List<ITileType> resultTileTypeList = new List<ITileType>();
+            foreach (ITileType tileTypeInList in Tiletypes)
+            {
+                if (tileTypeInList.TypeSort == typeSort)
+                {
+                    resultTileTypeList.Add(tileTypeInList);
+                }
+            }
+            return resultTileTypeList;
+        }
+        private void RemoveTile(ITileType tileType)
         {
             Tiletypes.Remove(tileType);
         }
@@ -48,49 +61,48 @@ namespace BackEnd
         {
             for (int i = 0; i < 18; i++)
             {
-                Tiletypes.Add(EnumLandTileType.Sea);
+                Tiletypes.Add(new WaterTileType(Type.Water));
             }
             for (int i = 0; i < 9; i++)
             {
-                Tiletypes.Add(EnumLandTileType.OneToThreeHarbour);
+                Tiletypes.Add(new HarbourTileType(Type.OneToThreeHarbour));
             }
             for (int i = 0; i < 4; i++)
             {
-                Tiletypes.Add(EnumLandTileType.Wood);
-                Tiletypes.Add(EnumLandTileType.Meadow);
-                Tiletypes.Add(EnumLandTileType.Wheat);
+                Tiletypes.Add(new LandTileType(Type.Wood));
+                Tiletypes.Add(new LandTileType(Type.Meadow));
+                Tiletypes.Add(new LandTileType(Type.Wheat));
             }
             for (int i = 0; i < 3; i++)
             {
-                Tiletypes.Add(EnumLandTileType.Ore);
-                Tiletypes.Add(EnumLandTileType.Stone);
+                Tiletypes.Add(new LandTileType(Type.Ore));
+                Tiletypes.Add(new LandTileType(Type.Stone));
             }
-            Tiletypes.Add(EnumLandTileType.Desert);
+            Tiletypes.Add(new LandTileType(Type.Desert));
         }
         private void SetLargeTileTypes()// declaring all tiles for 6P map.
         {
             for (int i = 0; i < 22; i++)
             {
-                Tiletypes.Add(EnumLandTileType.Sea);
+                Tiletypes.Add(new WaterTileType(Type.Water));
             }
             for (int i = 0; i < 11; i++)
             {
-                Tiletypes.Add(EnumLandTileType.OneToThreeHarbour);
+                Tiletypes.Add(new HarbourTileType(Type.OneToThreeHarbour));
             }
             for (int i = 0; i < 6; i++)
             {
-                Tiletypes.Add(EnumLandTileType.Wood);
-                Tiletypes.Add(EnumLandTileType.Wheat);
-                Tiletypes.Add(EnumLandTileType.Meadow);
+                Tiletypes.Add(new LandTileType(Type.Wood));
+                Tiletypes.Add(new LandTileType(Type.Meadow));
+                Tiletypes.Add(new LandTileType(Type.Wheat));
             }
             for (int i = 0; i < 5; i++)
             {
-                Tiletypes.Add(EnumLandTileType.Ore);
-                Tiletypes.Add(EnumLandTileType.Stone);
-
+                Tiletypes.Add(new LandTileType(Type.Ore));
+                Tiletypes.Add(new LandTileType(Type.Stone));
             }
-            Tiletypes.Add(EnumLandTileType.Desert);
-            Tiletypes.Add(EnumLandTileType.Desert);
+            Tiletypes.Add(new LandTileType(Type.Desert));
+            Tiletypes.Add(new LandTileType(Type.Desert));
         }
     }
 }

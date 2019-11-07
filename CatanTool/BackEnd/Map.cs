@@ -18,10 +18,6 @@ namespace BackEnd
             TileDistributor = new TileDistributor(maptype);
             NumberDistributor = new NumberDistributor(maptype);
             CoordsDistributor = new CoordsDistributor(maptype);
-            for (int tileNum = 0; tileNum < (int)maptype; tileNum++)
-            {
-                
-            }
         }
 
         public bool AdjacentsTilesHas6or8(List<ITile> AdjacentsTiles)
@@ -66,13 +62,13 @@ namespace BackEnd
             }
             return null;
         }
-        public List<ITile> CreateLandTilesFor6And8()
+        private List<ITile> CreateLandTilesFor6And8()
         {
             List<ITile> landTiles8And6 = new List<ITile>();
             foreach (int num6Or8 in NumberDistributor.GetListNumbersOf(new List<int>() { 6, 8 }))
             {
                 int number = num6Or8;
-                EnumLandTileType tileType = TileDistributor.GetOneLandTileType();//should be tiledistributor.GetOneLANDtiletype.
+                ITileType tileType = TileDistributor.GetOneRandomTileTypeOfTypeSort(TypeSort.Land);
                 Coordinate coordinate = CoordsDistributor.GetOneRandomLandCoordinate();
                 bool numberIsntAssignedInTile = true;
 
@@ -87,6 +83,18 @@ namespace BackEnd
                 }
             }
             return landTiles8And6;
+        }
+        private List<ITile> CreateRemainingNumbersForTiles()
+        {
+            //foreach(int number in NumberDistributor.)
+            return null;
+        }
+        public List<ITile> createtiles(EnumMapType type)
+        {
+            List<ITile> result = new List<ITile>();
+            result = CreateLandTilesFor6And8();
+
+            return result;
         }
     }
 }

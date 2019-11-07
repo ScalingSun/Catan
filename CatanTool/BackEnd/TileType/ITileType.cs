@@ -4,9 +4,9 @@ using System.Text;
 
 namespace BackEnd
 {
-    public enum EnumCoordinateType
+    public interface ITileType
     {
-        Sea = 1,
-        Land = 2
+        Type Type { get; }
+        TypeSort TypeSort { get; }
     }
 }

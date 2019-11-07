@@ -37,7 +37,8 @@ namespace BackEnd
         public Coordinate GetOneRandomLandCoordinate()
         {
             Random random = new Random();
-            Coordinate randomCoordinate = GetListLandCoordinates()[random.Next(0, coords.Count - 1)];
+            int num = GetListLandCoordinates().Count - 1;
+            Coordinate randomCoordinate = GetListLandCoordinates()[random.Next(0, num)];
             coords.Remove(randomCoordinate);
             return randomCoordinate;
         }
