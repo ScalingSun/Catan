@@ -13,6 +13,7 @@ namespace BackEnd
         {
             this.Yaxis = Yaxis;
             this.Xaxis = Xaxis;
+            CoordinateType = coordinateType;
         }
     }
 }

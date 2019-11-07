@@ -18,10 +18,6 @@ namespace BackEnd
             TileDistributor = new TileDistributor(maptype);
             NumberDistributor = new NumberDistributor(maptype);
             CoordsDistributor = new CoordsDistributor(maptype);
-            for (int tileNum = 0; tileNum < (int)maptype; tileNum++)
-            {
-                
-            }
         }
 
         public bool AdjacentsTilesHas6or8(List<ITile> AdjacentsTiles)
@@ -66,14 +62,14 @@ namespace BackEnd
             }
             return null;
         }
-        public List<ITile> CreateLandTilesFor6And8()
+        private List<ITile> CreateLandTilesFor6And8()
         {
             List<ITile> landTiles8And6 = new List<ITile>();
             foreach (int num6Or8 in NumberDistributor.GetListNumbersOf(new List<int>() { 6, 8 }))
             {
                 int number = num6Or8;
-                EnumLandTileType tileType = TileDistributor.GetOneLandTileType();//should be tiledistributor.GetOneLANDtiletype.
-                Coordinate coordinate = CoordsDistributor.GetOneRandomLandCoordinate();
+                ITileType tileType = TileDistributor.GetOneRandomTileTypeOfTypeSort(EnumTypeSort.Land);
+                Coordinate coordinate = CoordsDistributor.GetOneRandomCoordinate(EnumCoordinateType.Land);
                 bool numberIsntAssignedInTile = true;
 
                 while (numberIsntAssignedInTile)
@@ -83,10 +79,78 @@ namespace BackEnd
                         landTiles8And6.Add(new LandTile(coordinate, tileType, number));
                         numberIsntAssignedInTile = false;
                     }
-                   coordinate = CoordsDistributor.GetOneRandomLandCoordinate();            
+                   coordinate = CoordsDistributor.GetOneRandomCoordinate(EnumCoordinateType.Land);            
                 }
             }
             return landTiles8And6;
+        }
+        private List<ITile> CreateRemainingNumbersForTiles()
+        {
+            List<ITile> landTiles = new List<ITile>();
+
+            List<int> numbers = NumberDistributor.GetNumbers();
+            ITileType tileType = TileDistributor.GetOneRandomTileTypeOfTypeSort(EnumTypeSort.Land);
+            Coordinate coordinate = CoordsDistributor.GetOneRandomCoordinate(EnumCoordinateType.Land);
+            foreach (int number in numbers)
+            {
+                ITile newTile = new LandTile(coordinate, tileType, number);
+                landTiles.Add(newTile);
+            }
+            return landTiles;
+        }
+        private ITile CreateDesertTile()
+        {
+            ITileType tileType = TileDistributor.GetDesertTileType();
+            Coordinate coordinate = CoordsDistributor.GetOneRandomCoordinate(EnumCoordinateType.Land);
+            int number = NumberDistributor.Get7FromList();
+
+            ITile desertTile = new LandTile(coordinate, tileType, number);
+            return desertTile;
+        }
+        private List<ITile> CreateHarbourTiles()
+        {
+            List<ITile> HarbourTiles = new List<ITile>();
+
+            IList<ITileType> tileTypes = TileDistributor.GetListTileTypesOfTypeSort(EnumTypeSort.Harbour);
+            List<Coordinate> coordinates = CoordsDistributor.GetListCoordinates(EnumCoordinateType.Harbour);
+
+            foreach(TileType tile in tileTypes)
+            {
+                if(HarbourTiles.Count == 9)
+                {
+                    break;
+                }
+                HarbourTiles.Add(new HarbourTile(CoordsDistributor.GetOneRandomCoordinate(EnumCoordinateType.Harbour), tile));
+            }
+            return HarbourTiles;
+
+        }
+        private List<ITile> CreateSeaTiles()
+        {
+            List<ITile> SeaTiles = new List<ITile>();
+            IList<ITileType> tileTypes = TileDistributor.GetListTileTypesOfTypeSort(EnumTypeSort.Sea);
+            List<Coordinate> coordinates = CoordsDistributor.GetListCoordinates(EnumCoordinateType.Sea);
+
+            foreach (TileType tile in tileTypes)
+            {
+                if (SeaTiles.Count == 9)
+                {
+                    break;
+                }
+                SeaTiles.Add(new HarbourTile(CoordsDistributor.GetOneRandomCoordinate(EnumCoordinateType.Sea), tile));
+            }
+            return SeaTiles;
+
+        }
+        public List<ITile> createtiles(EnumMapType type)
+        {
+            List<ITile> result = new List<ITile>();
+            result.Add(CreateDesertTile());
+            result.AddRange(CreateLandTilesFor6And8());
+            result.AddRange(CreateRemainingNumbersForTiles());
+            result.AddRange(CreateHarbourTiles());
+            result.AddRange(CreateSeaTiles());
+            return result;
         }
     }
 }

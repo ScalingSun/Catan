@@ -8,12 +8,12 @@ namespace BackEnd
     {
         public Coordinate Coordinate { get; private set; }
 
-        public EnumLandTileType Resource { get; private set; }
+        public ITileType Resource { get; private set; }
 
-        public WaterTile(Coordinate coordinate, EnumLandTileType resource)
+        public WaterTile(Coordinate coordinate, ITileType resource)
         {
             Coordinate = coordinate;
-            Resource = EnumLandTileType.Sea;
+            Resource = new WaterTileType(EnumType.Water);
         }
     }
 }

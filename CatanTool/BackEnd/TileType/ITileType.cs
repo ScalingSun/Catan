@@ -4,8 +4,9 @@ using System.Text;
 
 namespace BackEnd
 {
-   public enum MapType
+    public interface ITileType
     {
-        small = 7, big = 8
+        EnumType Type { get; }
+        EnumTypeSort TypeSort { get; }
     }
 }
