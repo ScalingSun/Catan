@@ -8,10 +8,10 @@ namespace BackEnd
 {
     public class CoordsDistributor
     {
-        EnumMapType Type;
+        MapType Type;
         public List<Coordinate> coords;
 
-        public CoordsDistributor(EnumMapType type)
+        public CoordsDistributor(MapType type)
         {
             Type = type;
             coords = new List<Coordinate>();
