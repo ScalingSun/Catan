@@ -28,7 +28,7 @@ namespace BackEnd
         {
             IList<ITileType> sortedListTileType = GetListTileTypesOfTypeSort(typeSort);
             Random R = new Random();
-            int randomnumber = R.Next(1, sortedListTileType.Count);
+            int randomnumber = R.Next(0, sortedListTileType.Count -1);
             ITileType result = sortedListTileType[randomnumber];
             RemoveTile(result);
             return result;
@@ -109,7 +109,7 @@ namespace BackEnd
             }
             for (int i = 0; i < 11; i++)
             {
-                Tiletypes.Add(EnumTileType.Harbour);
+                //Tiletypes.Add(EnumType.Harbour);
             }
             for (int i = 0; i < 6; i++)
             {

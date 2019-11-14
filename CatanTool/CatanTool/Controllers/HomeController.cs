@@ -18,13 +18,14 @@ namespace CatanTool.Controllers
         public IActionResult Index()
         {
             Visualiser visualiser = new Visualiser();
-            List<ITile> tiles = new List<ITile>()
-            {
-                new WaterTile(0,0,EnumTileType.Sea), new HarbourTile(1,0,EnumTileType.TwoMeadowHarbour), new WaterTile(2,0,EnumTileType.Sea), new WaterTile(3,0,EnumTileType.Sea),
-                new WaterTile(0,1,EnumTileType.Sea), new LandTile(1,1,EnumTileType.Wood, 2), new LandTile(2,1,EnumTileType.Wood, 2), new LandTile(3,1,EnumTileType.Meadow, 8), new WaterTile(4,1,EnumTileType.Sea)
-            };
-
-            Playboard pb = new Playboard(visualiser.DrawMap(tiles));
+            Map map = new Map(EnumMapType.small);
+            //List<ITile> tiles = map.createtiles(EnumMapType.small);
+            /*
+            List<ITile> tiles = map.CreateHarbourTiles();
+            tiles.AddRange(map.CreateSeaTiles());*/
+            List<ITile> result = new List<ITile>();
+            result.AddRange(map.createtiles(EnumMapType.small));
+            Playboard pb = new Playboard(visualiser.DrawMap(result));
             
             return View(pb);
         }

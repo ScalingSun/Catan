@@ -16,17 +16,11 @@ namespace BackEnd
     {
         Desert, Ore, Wheat, Meadow, Wood, Stone, OneToThreeHarbour, TwoMeadowHarbour, TwoWoodHarbour, TwoOreHarbour, TwoWheatHarbour, TwoStoneHarbour, Water
     }
-    public enum EnumTypeSort
-    {
-        Land,
-        Sea,
-        Harbour,
-    }
     public enum EnumMapType
     {
         small = 7, big = 8
     }
-    public enum EnumCoordinateType
+    public enum EnumTypeSort
     {
         Sea = 1,
         Land = 2,

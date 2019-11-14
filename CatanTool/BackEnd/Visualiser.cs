@@ -59,10 +59,10 @@ namespace BackEnd
             hexagonPoints = ChangeMapStartPoint(10, drawing.Width / 2 - 2 * yMove, hexagonPoints);
 
             // Change position of where the hexagon will be drawn, according to a tile's coordinates.
-            hexagonPoints = ChangeHexagonPoint(tile.Yaxis, tile.Xaxis, yMove, xMove, hexagonPoints);
+            hexagonPoints = ChangeHexagonPoint(tile.Coordinate.Yaxis, tile.Coordinate.Xaxis, yMove, xMove, hexagonPoints);
 
             // Set colour of the fill and lines.
-            Brush fillColour = GetResourceBrush(tile.Resource);
+            Brush fillColour = GetResourceBrush(tile.Resource.Type);
             Pen linePen = new Pen(Brushes.Black, 2f);
 
             // Draw the hexagon.
@@ -70,7 +70,7 @@ namespace BackEnd
             {
                 if (tile is HarbourTile)
                 {
-                    fillColour = GetResourceBrush(EnumTileType.Sea);
+                    fillColour = GetResourceBrush(EnumType.Water);
                 }
 
                 graphic.FillPolygon(fillColour, hexagonPoints);
@@ -79,14 +79,14 @@ namespace BackEnd
                 // If the tile is a LandTile, draw a number on top of it.
                 if (tile is LandTile landTile)
                 {
-                    graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Xaxis - xMove / 2 * tile.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Yaxis));
+                    graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Coordinate.Yaxis));
                 }
 
                 if (tile is HarbourTile)
                 {
-                    fillColour = GetResourceBrush(tile.Resource);
-                    graphic.FillEllipse(fillColour, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Xaxis - xMove / 2 * tile.Yaxis - 25, yMove / 2 + yMove * tile.Yaxis, 50, 50);
-                    graphic.DrawEllipse(linePen, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Xaxis - xMove / 2 * tile.Yaxis - 25, yMove / 2 + yMove * tile.Yaxis, 50, 50);
+                    fillColour = GetResourceBrush(tile.Resource.Type);
+                    graphic.FillEllipse(fillColour, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
+                    graphic.DrawEllipse(linePen, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
                 }
             }
         }
@@ -149,33 +149,33 @@ namespace BackEnd
         /// </summary>
         /// <param name="resource">A resource that you need a colour of.</param>
         /// <returns>The colour that belongs to a resource.</returns>
-        private Brush GetResourceBrush(EnumTileType resource)
+        private Brush GetResourceBrush(EnumType resource)
         {
-            if (resource == EnumTileType.Stone || resource == EnumTileType.TwoStoneHarbour)
+            if (resource == EnumType.Stone || resource == EnumType.TwoStoneHarbour)
             {
                 return Brushes.SandyBrown;
             }
-            if (resource == EnumTileType.Ore || resource == EnumTileType.TwoOreHarbour)
+            if (resource == EnumType.Ore || resource == EnumType.TwoOreHarbour)
             {
                 return Brushes.DarkGray;
             }
-            if (resource == EnumTileType.Desert)
+            if (resource == EnumType.Desert)
             {
                 return Brushes.Khaki;
             }
-            if (resource == EnumTileType.Wheat || resource == EnumTileType.TwoWheatHarbour)
+            if (resource == EnumType.Wheat || resource == EnumType.TwoWheatHarbour)
             {
                 return Brushes.Yellow;
             }
-            if (resource == EnumTileType.Sea)
+            if (resource == EnumType.Water)
             {
                 return Brushes.LightSeaGreen;
             }
-            if (resource == EnumTileType.Meadow || resource == EnumTileType.TwoMeadowHarbour)
+            if (resource == EnumType.Meadow || resource == EnumType.TwoMeadowHarbour)
             {
                 return Brushes.LawnGreen;
             }
-            if (resource == EnumTileType.Wood || resource == EnumTileType.TwoWoodHarbour)
+            if (resource == EnumType.Wood || resource == EnumType.TwoWoodHarbour)
             {
                 return Brushes.DarkGreen;
             }
