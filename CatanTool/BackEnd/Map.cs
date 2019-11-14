@@ -158,7 +158,7 @@ namespace BackEnd
             result.AddRange(CreateSeaTiles());
             return result;
         }
-
+        /*
         public List<ITile> createABCTiles()
         {
             List<ITile> result = new List<ITile>();
@@ -183,6 +183,6 @@ namespace BackEnd
             result.Add(new HarbourTile(new Coordinate(6, 1, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.TwoStoneHarbour))); result.Add(new LandTile(new Coordinate(6, 2, EnumCoordinateType.Land), new LandTileType(EnumType.Wheat), 11)); result.Add(new LandTile(new Coordinate(6, 3, EnumCoordinateType.Land), new LandTileType(EnumType.Stone), 4)); result.Add(new LandTile(new Coordinate(6, 4, EnumCoordinateType.Land), new LandTileType(EnumType.Wheat), 3)); result.Add(new WaterTile(new Coordinate(6, 5, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water)));
             result.Add(new WaterTile(new Coordinate(7, 1, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new HarbourTile(new Coordinate(7, 2, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.OneToThreeHarbour))); result.Add(new WaterTile(new Coordinate(7, 3, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new HarbourTile(new Coordinate(7, 4, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.TwoWoodHarbour)));
             return result;
-        }
+        }*/
     }
 }
