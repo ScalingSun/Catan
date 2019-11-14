@@ -24,7 +24,7 @@ namespace CatanTool.Controllers
             List<ITile> tiles = map.CreateHarbourTiles();
             tiles.AddRange(map.CreateSeaTiles());*/
             List<ITile> result = new List<ITile>();
-            result.AddRange(map.createtiles(EnumMapType.small));
+            result = map.tiles;
             Playboard pb = new Playboard(visualiser.DrawMap(result));
             
             return View(pb);
