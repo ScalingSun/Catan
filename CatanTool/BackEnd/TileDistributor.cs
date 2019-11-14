@@ -109,7 +109,7 @@ namespace BackEnd
             }
             for (int i = 0; i < 11; i++)
             {
-                Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+                Tiletypes.Add(EnumTileType.Harbour);
             }
             for (int i = 0; i < 6; i++)
             {
