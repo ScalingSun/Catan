@@ -36,11 +36,11 @@ namespace BackEnd
 
             foreach (ITile originTile in mapTiles)
             {
-                List<ITile> adjecentTiles = GetAdjacentsTiles(originTile.Coordinate);
+                List<ITile> adjecentTiles = GetAdjacentTiles(originTile.Coordinate);
                 List<ITile> secondaryAdjecentTiles = null;
                 try
                 {
-                    secondaryAdjecentTiles = GetAdjacentsTiles(adjecentTiles[0].Coordinate);
+                    secondaryAdjecentTiles = GetAdjacentTiles(adjecentTiles[0].Coordinate);
                 }
                 catch
                 {
@@ -51,7 +51,7 @@ namespace BackEnd
                 {
                     foreach (ITile secondaryAdjecentTile in secondaryAdjecentTiles)
                     {
-                        if (adjecentTile == secondaryAdjecentTile && (adjecentTile != originTile || secondaryAdjecentTile != originTile))
+                        if (adjecentTile != secondaryAdjecentTile && adjecentTile != originTile && secondaryAdjecentTile != originTile)
                         {
                             Junction junction = new Junction(new List<ITile> { originTile, adjecentTile, secondaryAdjecentTile });
 
@@ -79,7 +79,7 @@ namespace BackEnd
             return false;
         }
 
-        public List<ITile> GetAdjacentsTiles(Coordinate Coordinate)
+        public List<ITile> GetAdjacentTiles(Coordinate Coordinate)
         {
             List<ITile> junctionTiles = new List<ITile>();
             foreach (ITile tile in tiles)
@@ -122,7 +122,7 @@ namespace BackEnd
 
                 while (numberIsntAssignedInTile)
                 {
-                    if (!AdjacentsTilesHas6or8(GetAdjacentsTiles(coordinate)))
+                    if (!AdjacentsTilesHas6or8(GetAdjacentTiles(coordinate)))
                     {
                         landTiles8And6.Add(new LandTile(coordinate, tileType, number));
                         numberIsntAssignedInTile = false;

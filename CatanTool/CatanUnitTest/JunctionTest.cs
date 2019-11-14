@@ -21,7 +21,7 @@ namespace CatanUnitTest
 
             Map map = new Map(tiles);
 
-            int expectedCount = 2;
+            int expectedCount = 1;
 
             // Act
             List<Junction> actual = map.FindAllJunctions(tiles);
