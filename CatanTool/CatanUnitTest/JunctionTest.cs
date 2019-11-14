@@ -1,7 +1,7 @@
 ﻿using BackEnd;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Xunit;
 
 namespace CatanUnitTest
@@ -9,19 +9,19 @@ namespace CatanUnitTest
     public class JunctionTest
     {
         [Fact]
-        public void FindSingleJunction()
+        public void ThreeTileJunction()
         {
             // Arrange
             List<ITile> tiles = new List<ITile>
             {
                 new LandTile(new Coordinate(0,0,EnumCoordinateType.Land), EnumLandTileType.Desert, 1),
                 new LandTile(new Coordinate(0,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 2),
-                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 3)
+                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 2)
             };
 
             Map map = new Map(tiles);
 
-            int expectedCount = 5;
+            int expectedCount = 2;
 
             // Act
             List<Junction> actual = map.FindAllJunctions(tiles);
@@ -69,13 +69,46 @@ namespace CatanUnitTest
 
             Map map = new Map(tiles);
 
-            int expectedCount = 12;
+            int expectedCount = 6;
 
             // Act
             List<Junction> actual = map.FindAllJunctions(tiles);
 
             // Assert
             Assert.Equal(expectedCount, actual.Count);
+        }
+
+        [Fact]
+        public void NoSameTilesInJunction()
+        {
+            // Arrange
+            List<ITile> tiles = new List<ITile>
+            {
+                new LandTile(new Coordinate(0,0,EnumCoordinateType.Land), EnumLandTileType.Desert, 1),
+                new LandTile(new Coordinate(0,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 2),
+                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 3)
+            };
+
+            Map map = new Map(tiles);
+
+            // Act
+            List<Junction> junctions = map.FindAllJunctions(tiles);
+
+            // Assert
+            if (junctions.Where(j => j.ThreeTiles.Contains(tiles[0])).Count() > 1)
+            {
+                Assert.False(true);
+            }
+
+            if (junctions.Where(j => j.ThreeTiles.Contains(tiles[1])).Count() > 1)
+            {
+                Assert.False(true);
+            }
+
+            if (junctions.Where(j => j.ThreeTiles.Contains(tiles[2])).Count() > 1)
+            {
+                Assert.False(true);
+            }
         }
     }
 }

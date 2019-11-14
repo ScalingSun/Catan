@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BackEnd
 {
@@ -36,7 +37,15 @@ namespace BackEnd
             foreach (ITile originTile in mapTiles)
             {
                 List<ITile> adjecentTiles = GetAdjacentsTiles(originTile.Coordinate);
-                List<ITile> secondaryAdjecentTiles = GetAdjacentsTiles(adjecentTiles[0].Coordinate);
+                List<ITile> secondaryAdjecentTiles = null;
+                try
+                {
+                    secondaryAdjecentTiles = GetAdjacentsTiles(adjecentTiles[0].Coordinate);
+                }
+                catch
+                {
+                    continue;
+                }
                 
                 foreach(ITile adjecentTile in adjecentTiles)
                 {
@@ -46,7 +55,7 @@ namespace BackEnd
                         {
                             Junction junction = new Junction(new List<ITile> { originTile, adjecentTile, secondaryAdjecentTile });
 
-                            if (!foundJunctions.Contains(junction))
+                            if (foundJunctions.Where(j => j.ThreeTiles.Contains(originTile) && j.ThreeTiles.Contains(adjecentTile) && j.ThreeTiles.Contains(secondaryAdjecentTile)).Count() == 0)
                             {
                                 foundJunctions.Add(junction);
                             }
@@ -75,15 +84,15 @@ namespace BackEnd
             List<ITile> junctionTiles = new List<ITile>();
             foreach (ITile tile in tiles)
             {
-                if (tile.Coordinate.Yaxis == Coordinate.Yaxis - 1 & tile.Coordinate.Xaxis == Coordinate.Xaxis - 1 | tile.Coordinate.Xaxis == Coordinate.Xaxis)
+                if (tile.Coordinate.Yaxis == Coordinate.Yaxis - 1 && (tile.Coordinate.Xaxis == Coordinate.Xaxis - 1 || tile.Coordinate.Xaxis == Coordinate.Xaxis))
                 {
                     junctionTiles.Add(tile);
                 }
-                if (tile.Coordinate.Yaxis == Coordinate.Yaxis & tile.Coordinate.Xaxis == Coordinate.Xaxis - 1 | tile.Coordinate.Xaxis == Coordinate.Xaxis + 1)
+                if (tile.Coordinate.Yaxis == Coordinate.Yaxis && (tile.Coordinate.Xaxis == Coordinate.Xaxis - 1 || tile.Coordinate.Xaxis == Coordinate.Xaxis + 1))
                 {
                     junctionTiles.Add(tile);
                 }
-                if (tile.Coordinate.Yaxis == Coordinate.Yaxis + 1 & tile.Coordinate.Xaxis == Coordinate.Xaxis | tile.Coordinate.Xaxis == Coordinate.Xaxis + 1)
+                if (tile.Coordinate.Yaxis == Coordinate.Yaxis + 1 && (tile.Coordinate.Xaxis == Coordinate.Xaxis || tile.Coordinate.Xaxis == Coordinate.Xaxis + 1))
                 {
                     junctionTiles.Add(tile);
                 }
