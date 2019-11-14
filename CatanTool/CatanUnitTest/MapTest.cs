@@ -11,7 +11,7 @@ namespace CatanUnitTest
         public void mahnigga()
         {
             Map map = new Map(EnumMapType.small);
-            List<ITile> tiles = map.createtiles(EnumMapType.small);
+            //List<ITile> tiles = map.createtiles(EnumMapType.small);
             string aap = "a";
         }
 
