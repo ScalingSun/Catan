@@ -39,6 +39,10 @@ namespace BackEnd
         /// <param name="drawing">The map the tile is being drawn on.</param>
         private void DrawHex(ITile tile, Bitmap drawing)
         {
+            if(tile.Resource.TypeSort == EnumTypeSort.Sea)
+            {
+
+            }
             // Base points for a hexagon.
             Point[] hexagonPoints = new Point[]
                 {
@@ -79,7 +83,14 @@ namespace BackEnd
                 // If the tile is a LandTile, draw a number on top of it.
                 if (tile is LandTile landTile)
                 {
-                    graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Coordinate.Yaxis));
+                    if (landTile.Value == 7)
+                    {
+                        graphic.DrawString("", new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Coordinate.Yaxis));
+                    }
+                    else
+                    {
+                        graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Coordinate.Yaxis));
+                    }
                 }
 
                 if (tile is HarbourTile)

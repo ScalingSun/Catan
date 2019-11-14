@@ -29,30 +29,23 @@ namespace CatanTool.Controllers
             
             return View(pb);
         }
-
-        public IActionResult About()
+        public IActionResult ABCmethod()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            Visualiser visualiser = new Visualiser();
+            Map map = new Map(EnumMapType.small);
+            List<ITile> result = new List<ITile>();
+            result.AddRange(map.createABCTiles());
+            Playboard pb = new Playboard(visualiser.DrawMap(result));
+            return View(pb);
         }
-
-        public IActionResult Contact()
+        public IActionResult OreForWoolMethod()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            Visualiser visualiser = new Visualiser();
+            Map map = new Map(EnumMapType.small);
+            List<ITile> result = new List<ITile>();
+            result.AddRange(map.createOreForWoolTiles());
+            Playboard pb = new Playboard(visualiser.DrawMap(result));
+            return View(pb);
         }
     }
 }
