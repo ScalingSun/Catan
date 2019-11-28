@@ -8,7 +8,7 @@ namespace BackEnd
     {
         public LandTileType(EnumType type) : base(type)
         {
-            TypeSort = EnumTypeSort.Land;
+            TypeSort = EnumCoordinateType.Land;
         }
     }
 }

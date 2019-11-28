@@ -8,7 +8,7 @@ namespace BackEnd
     {
         public HarbourTileType(EnumType type) : base(type)
         {
-            TypeSort = EnumTypeSort.Harbour;
+            TypeSort = EnumCoordinateType.Harbour;
         }
 
     }

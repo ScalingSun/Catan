@@ -39,7 +39,7 @@ namespace BackEnd
         /// <param name="drawing">The map the tile is being drawn on.</param>
         private void DrawHex(ITile tile, Bitmap drawing)
         {
-            if (tile.Resource.TypeSort == EnumTypeSort.Sea)
+            if (tile.Resource.TypeSort == EnumCoordinateType.Sea)
             {
 
             }
