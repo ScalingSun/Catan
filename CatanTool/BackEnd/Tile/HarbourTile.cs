@@ -7,10 +7,9 @@ namespace BackEnd
     public class HarbourTile : ISeaTile
     {
         public Coordinate Coordinate { get; private set; }
+        public ITileType Resource { get; private set; }
 
-        public EnumLandTileType Resource { get; private set; }
-
-        public HarbourTile(Coordinate coordinate, EnumLandTileType resource)
+        public HarbourTile(Coordinate coordinate, ITileType resource)
         {
             Coordinate = coordinate;
             Resource = resource;

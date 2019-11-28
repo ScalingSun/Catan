@@ -7,10 +7,10 @@ namespace BackEnd
     public class LandTile : ITile
     {
         public Coordinate Coordinate { get; private set; }
-        public EnumLandTileType Resource { get; private set; }
+        public ITileType Resource { get; private set; }
         public int Value { get; private set; }
 
-        public LandTile(Coordinate coordinate, EnumLandTileType resource, int value)
+        public LandTile(Coordinate coordinate, ITileType resource, int value)
         {
             Coordinate = coordinate;
             Resource = resource;

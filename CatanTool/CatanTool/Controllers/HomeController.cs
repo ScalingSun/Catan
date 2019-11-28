@@ -5,39 +5,53 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CatanTool.Models;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
+using BackEnd;
 
 namespace CatanTool.Controllers
 {
     public class HomeController : Controller
     {
+
         public IActionResult Index()
         {
-            return View();
+            Visualiser visualiser = new Visualiser();
+            Map map = new Map(EnumMapType.small);
+            List<ITile> result = new List<ITile>();
+            result = map.tiles;
+            Playboard pb = new Playboard(visualiser.DrawMap(result));
+            
+            return View(pb);
         }
-
-        public IActionResult About()
+        public IActionResult ABCmethod()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            Visualiser visualiser = new Visualiser();
+            Map map = new Map(EnumMapType.small);
+            List<ITile> result = new List<ITile>();
+            result.AddRange(map.createABCTiles());
+            Playboard pb = new Playboard(visualiser.DrawMap(result));
+            return View(pb);
         }
-
-        public IActionResult Contact()
+        public IActionResult OreForWoolMethod()
         {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
+            Visualiser visualiser = new Visualiser();
+            Map map = new Map(EnumMapType.small);
+            List<ITile> result = new List<ITile>();
+            result.AddRange(map.createOreForWoolTiles());
+            Playboard pb = new Playboard(visualiser.DrawMap(result));
+            return View(pb);
         }
-
-        public IActionResult Privacy()
+        public IActionResult BigMap()
         {
-            return View();
-        }
+            Visualiser visualiser = new Visualiser();
+            Map map = new Map(EnumMapType.big);
+            List<ITile> result = new List<ITile>();
+            result = map.tiles;
+            Playboard pb = new Playboard(visualiser.DrawMap(result));
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(pb);
         }
     }
 }
