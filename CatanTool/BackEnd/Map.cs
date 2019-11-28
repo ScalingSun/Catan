@@ -30,6 +30,15 @@ namespace BackEnd
             tiles = inTiles;
         }
 
+        private bool TilesAreSame(ITile tile1, ITile tile2)
+        {
+            if (tile1.Coordinate.Xaxis == tile2.Coordinate.Xaxis && tile1.Coordinate.Yaxis == tile2.Coordinate.Yaxis)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public List<Junction> FindAllJunctions(List<ITile> mapTiles)
         {
             List<Junction> foundJunctions = new List<Junction>();
@@ -37,7 +46,29 @@ namespace BackEnd
             foreach (ITile originTile in mapTiles)
             {
                 List<ITile> adjecentTiles = GetAdjacentTiles(originTile.Coordinate);
-                List<ITile> secondaryAdjecentTiles = null;
+
+                foreach (ITile adjecentTile in adjecentTiles)
+                {
+                    List<ITile> secondaryAdjecentTiles = GetAdjacentTiles(adjecentTile.Coordinate);
+
+                    foreach (ITile secondaryAdjecentTile in secondaryAdjecentTiles)
+                    {
+                        bool tisnto1 = TileIsNextToOrigin(originTile, adjecentTile);
+                        bool tisnto2 = TileIsNextToOrigin(originTile, secondaryAdjecentTile);
+                        bool tas = TilesAreSame(originTile, secondaryAdjecentTile);
+
+                        if (TileIsNextToOrigin(originTile, adjecentTile) && TileIsNextToOrigin(originTile, secondaryAdjecentTile) && !TilesAreSame(originTile, secondaryAdjecentTile))
+                        {
+                            if (foundJunctions.Where(fj => fj.ThreeTiles.Contains(originTile) && fj.ThreeTiles.Contains(adjecentTile) && fj.ThreeTiles.Contains(secondaryAdjecentTile)).Count() == 0)
+                            {
+                                foundJunctions.Add(new Junction(new List<ITile> { originTile, adjecentTile, secondaryAdjecentTile }));
+                            }
+                        }
+                    }
+                }
+
+                /*List<ITile> secondaryAdjecentTiles = null;
+
                 try
                 {
                     secondaryAdjecentTiles = GetAdjacentTiles(adjecentTiles[0].Coordinate);
@@ -61,10 +92,31 @@ namespace BackEnd
                             }
                         }
                     }
-                }
+                }*/
             }
 
             return foundJunctions;
+        }
+
+        private bool TileIsNextToOrigin(ITile originTile, ITile adjecentTile)
+        {
+            if (originTile.Coordinate.Xaxis == adjecentTile.Coordinate.Xaxis && originTile.Coordinate.Yaxis == adjecentTile.Coordinate.Yaxis)
+            {
+                return false;
+            }
+
+            if (originTile.Coordinate.Xaxis - 1 <= adjecentTile.Coordinate.Xaxis && originTile.Coordinate.Xaxis + 1 >= adjecentTile.Coordinate.Xaxis)
+            {
+                if (originTile.Coordinate.Yaxis - 1 <= adjecentTile.Coordinate.Yaxis && originTile.Coordinate.Yaxis + 1 >= adjecentTile.Coordinate.Yaxis)
+                {
+                    if (originTile.Coordinate.Xaxis == adjecentTile.Coordinate.Yaxis ^ originTile.Coordinate.Yaxis == adjecentTile.Coordinate.Xaxis)
+                    {
+                        return true;
+                    }  
+                }
+            }
+
+            return false;
         }
 
         public bool AdjacentsTilesHas6or8(List<ITile> AdjacentsTiles)

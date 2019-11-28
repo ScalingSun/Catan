@@ -16,7 +16,7 @@ namespace CatanUnitTest
             {
                 new LandTile(new Coordinate(0,0,EnumCoordinateType.Land), EnumLandTileType.Desert, 1),
                 new LandTile(new Coordinate(0,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 2),
-                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 2)
+                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 3)
             };
 
             Map map = new Map(tiles);
@@ -29,6 +29,8 @@ namespace CatanUnitTest
             // Assert
             Assert.Equal(expectedCount, actual.Count);
         }
+
+
 
         [Fact]
         public void NoJunctionFound()
@@ -44,6 +46,32 @@ namespace CatanUnitTest
             Map map = new Map(tiles);
 
             int expectedCount = 0;
+
+            // Act
+            List<Junction> actual = map.FindAllJunctions(tiles);
+
+            // Assert
+            Assert.Equal(expectedCount, actual.Count);
+        }
+
+        [Fact]
+        public void RandomTileOrderMapJunctions()
+        {
+            // Arrange
+            List<ITile> tiles = new List<ITile>
+            {
+                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 4),
+                new LandTile(new Coordinate(1,0,EnumCoordinateType.Land), EnumLandTileType.Desert, 3),
+                new LandTile(new Coordinate(1,2,EnumCoordinateType.Land), EnumLandTileType.Desert, 5),
+                new LandTile(new Coordinate(0,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 2),
+                new LandTile(new Coordinate(2,1,EnumCoordinateType.Land), EnumLandTileType.Desert, 6),
+                new LandTile(new Coordinate(2,2,EnumCoordinateType.Land), EnumLandTileType.Desert, 7),
+                new LandTile(new Coordinate(0,0,EnumCoordinateType.Land), EnumLandTileType.Desert, 1)
+            };
+
+            Map map = new Map(tiles);
+
+            int expectedCount = 6;
 
             // Act
             List<Junction> actual = map.FindAllJunctions(tiles);
