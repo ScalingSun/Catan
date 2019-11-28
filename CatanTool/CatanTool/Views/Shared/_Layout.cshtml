@@ -30,10 +30,12 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">totaal random</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="ABCmethod">ABC Methode</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="OreForWoolMethod">OreForWool methode</a></li>
-                </ul>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index" class="lang" key="random">totaal random</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="ABCmethod" class="lang" key="ABC">ABC Methode</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="OreForWoolMethod" class="lang" key="Oreforwool">OreForWool methode</a></li>
+                    <li><a onclick="SetNLlanguage()">Nederlands</a></li>
+                    <li><a onclick="SetENlanguage()">English</a></li>
+                    </ul>
             </div>
         </div>
     </nav>
