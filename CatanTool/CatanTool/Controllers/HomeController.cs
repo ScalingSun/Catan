@@ -19,10 +19,6 @@ namespace CatanTool.Controllers
         {
             Visualiser visualiser = new Visualiser();
             Map map = new Map(EnumMapType.small);
-            //List<ITile> tiles = map.createtiles(EnumMapType.small);
-            /*
-            List<ITile> tiles = map.CreateHarbourTiles();
-            tiles.AddRange(map.CreateSeaTiles());*/
             List<ITile> result = new List<ITile>();
             result = map.tiles;
             Playboard pb = new Playboard(visualiser.DrawMap(result));
@@ -45,6 +41,16 @@ namespace CatanTool.Controllers
             List<ITile> result = new List<ITile>();
             result.AddRange(map.createOreForWoolTiles());
             Playboard pb = new Playboard(visualiser.DrawMap(result));
+            return View(pb);
+        }
+        public IActionResult BigMap()
+        {
+            Visualiser visualiser = new Visualiser();
+            Map map = new Map(EnumMapType.big);
+            List<ITile> result = new List<ITile>();
+            result = map.tiles;
+            Playboard pb = new Playboard(visualiser.DrawMap(result));
+
             return View(pb);
         }
     }

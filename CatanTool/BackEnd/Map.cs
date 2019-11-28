@@ -125,10 +125,6 @@ namespace BackEnd
 
             foreach(TileType tile in tileTypes)
             {
-                if(HarbourTiles.Count == 9)
-                {
-                    break;
-                }
                 HarbourTiles.Add(new HarbourTile(CoordsDistributor.GetOneRandomCoordinate(EnumTypeSort.Harbour), tile));
             }
             return HarbourTiles;
@@ -142,10 +138,6 @@ namespace BackEnd
 
             foreach (TileType tile in tileTypes)
             {
-                if (SeaTiles.Count == 9)
-                {
-                    break;
-                }
                 SeaTiles.Add(new WaterTile(CoordsDistributor.GetOneRandomCoordinate(EnumTypeSort.Sea), tile));
             }
             return SeaTiles;
@@ -153,7 +145,15 @@ namespace BackEnd
         }
         public void createtiles(EnumMapType type)
         {
+            if(type == EnumMapType.small)
+            {
             tiles.Add(CreateDesertTile());
+            }
+            if(type == EnumMapType.big)
+            {
+                tiles.Add(CreateDesertTile());
+                tiles.Add(CreateDesertTile());
+            }
             CreateLandTilesFor6And8();
             tiles.AddRange(CreateRemainingNumbersForTiles());
             tiles.AddRange(CreateHarbourTiles());

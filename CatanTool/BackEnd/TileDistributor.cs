@@ -73,7 +73,7 @@ namespace BackEnd
 
         private void SetTileTypes() //declaring all tiles for 4P map.
         {
-            for (int i = 0; i < 18; i++)
+            for (int i = 0; i < 9; i++)
             {
                 Tiletypes.Add(new WaterTileType(EnumType.Water));
             }
@@ -85,7 +85,6 @@ namespace BackEnd
             Tiletypes.Add(new HarbourTileType(EnumType.TwoStoneHarbour));
             Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
             Tiletypes.Add(new HarbourTileType(EnumType.TwoWheatHarbour));
-            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
             Tiletypes.Add(new HarbourTileType(EnumType.TwoWoodHarbour));
 
             for (int i = 0; i < 4; i++)
@@ -103,14 +102,22 @@ namespace BackEnd
         }
         private void SetLargeTileTypes()// declaring all tiles for 6P map.
         {
-            for (int i = 0; i < 22; i++)
+            for (int i = 0; i < 11; i++)
             {
                 Tiletypes.Add(new WaterTileType(EnumType.Water));
             }
-            for (int i = 0; i < 11; i++)
-            {
-                //Tiletypes.Add(EnumType.Harbour);
-            }
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoMeadowHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoMeadowHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoOreHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoStoneHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.OneToThreeHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoWheatHarbour));
+            Tiletypes.Add(new HarbourTileType(EnumType.TwoWoodHarbour));
+
             for (int i = 0; i < 6; i++)
             {
                 Tiletypes.Add(new LandTileType(EnumType.Wood));
