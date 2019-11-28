@@ -66,33 +66,6 @@ namespace BackEnd
                         }
                     }
                 }
-
-                /*List<ITile> secondaryAdjecentTiles = null;
-
-                try
-                {
-                    secondaryAdjecentTiles = GetAdjacentTiles(adjecentTiles[0].Coordinate);
-                }
-                catch
-                {
-                    continue;
-                }
-                
-                foreach(ITile adjecentTile in adjecentTiles)
-                {
-                    foreach (ITile secondaryAdjecentTile in secondaryAdjecentTiles)
-                    {
-                        if (adjecentTile != secondaryAdjecentTile && adjecentTile != originTile && secondaryAdjecentTile != originTile)
-                        {
-                            Junction junction = new Junction(new List<ITile> { originTile, adjecentTile, secondaryAdjecentTile });
-
-                            if (foundJunctions.Where(j => j.ThreeTiles.Contains(originTile) && j.ThreeTiles.Contains(adjecentTile) && j.ThreeTiles.Contains(secondaryAdjecentTile)).Count() == 0)
-                            {
-                                foundJunctions.Add(junction);
-                            }
-                        }
-                    }
-                }*/
             }
 
             return foundJunctions;
