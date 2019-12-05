@@ -7,7 +7,7 @@ namespace BackEnd
     public class Map
     {
         EnumMapType maptype;
-        List<Junction> junctions;
+        public List<Junction> Junctions;
         public List<ITile> tiles;
         TileDistributor TileDistributor;
         NumberDistributor NumberDistributor;
@@ -36,9 +36,31 @@ namespace BackEnd
             return false;
         }
 
-        public List<Junction> FindAllJunctions(List<ITile> mapTiles)
+        public IReadOnlyList<Junction> GetTopJunctions(int amount)
         {
-            List<Junction> foundJunctions = new List<Junction>();
+            List<Junction> sortedJunctions = (from j in Junctions
+                                              orderby j.Score descending
+                                              select j).ToList();
+
+            List<Junction> topJunctions = new List<Junction>();
+
+            for (int i = 0; i < amount; i++)
+            {
+                if (i > sortedJunctions.Count-1)
+                {
+                    break;
+                }
+
+                topJunctions.Add(sortedJunctions[i]);
+            }
+
+            return topJunctions;
+        }
+
+        public void FindAllJunctions()
+        {
+            IReadOnlyList<ITile> mapTiles = tiles;
+            Junctions = new List<Junction>();
 
             foreach (ITile originTile in mapTiles)
             {
@@ -56,16 +78,14 @@ namespace BackEnd
 
                         if (TileIsNextToOrigin(originTile, adjecentTile) && TileIsNextToOrigin(originTile, secondaryAdjecentTile) && !TilesAreSame(originTile, secondaryAdjecentTile))
                         {
-                            if (foundJunctions.Where(fj => fj.ThreeTiles.Contains(originTile) && fj.ThreeTiles.Contains(adjecentTile) && fj.ThreeTiles.Contains(secondaryAdjecentTile)).Count() == 0)
+                            if (Junctions.Where(fj => fj.ThreeTiles.Contains(originTile) && fj.ThreeTiles.Contains(adjecentTile) && fj.ThreeTiles.Contains(secondaryAdjecentTile)).Count() == 0)
                             {
-                                foundJunctions.Add(new Junction(new List<ITile> { originTile, adjecentTile, secondaryAdjecentTile }));
+                                Junctions.Add(new Junction(new List<ITile> { originTile, adjecentTile, secondaryAdjecentTile }));
                             }
                         }
                     }
                 }
             }
-
-            return foundJunctions;
         }
 
         private bool TileIsNextToOrigin(ITile originTile, ITile adjecentTile)
@@ -228,6 +248,7 @@ namespace BackEnd
             tiles.AddRange(CreateHarbourTiles());
             tiles.AddRange(CreateSeaTiles());
         }
+
         public List<ITile> createABCTiles()
         {
             List<ITile> result = new List<ITile>();

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BackEnd
 {
-    public class LandTile : ITile
+    public class LandTile : ITile, ILandTile
     {
         public Coordinate Coordinate { get; private set; }
         public ITileType Resource { get; private set; }
