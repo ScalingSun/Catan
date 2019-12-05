@@ -7,7 +7,6 @@ namespace BackEnd
     public class HarbourTile : ISeaTile
     {
         public Coordinate Coordinate { get; private set; }
-
         public ITileType Resource { get; private set; }
 
         public HarbourTile(Coordinate coordinate, ITileType resource)

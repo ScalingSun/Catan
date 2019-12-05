@@ -31,7 +31,7 @@ namespace BackEnd
 
             return BitmapToByteString(drawing);
         }
-        
+
         /// <summary>
         /// Draw a tile onto the map.
         /// </summary>
@@ -39,7 +39,7 @@ namespace BackEnd
         /// <param name="drawing">The map the tile is being drawn on.</param>
         private void DrawHex(ITile tile, Bitmap drawing)
         {
-            if(tile.Resource.TypeSort == EnumTypeSort.Sea)
+            if (tile.Resource.TypeSort == EnumTypeSort.Sea)
             {
 
             }
@@ -63,6 +63,10 @@ namespace BackEnd
             hexagonPoints = ChangeMapStartPoint(10, drawing.Width / 2 - 2 * yMove, hexagonPoints);
 
             // Change position of where the hexagon will be drawn, according to a tile's coordinates.
+            if (tile.Coordinate == null)
+            {
+
+            }
             hexagonPoints = ChangeHexagonPoint(tile.Coordinate.Yaxis, tile.Coordinate.Xaxis, yMove, xMove, hexagonPoints);
 
             // Set colour of the fill and lines.

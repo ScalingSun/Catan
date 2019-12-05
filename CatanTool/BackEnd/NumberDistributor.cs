@@ -33,6 +33,39 @@ namespace BackEnd
                 numberlist.Add(11);
                 numberlist.Add(12);
             }
+            if(maptype == EnumMapType.big)
+            {
+                numberlist.Add(2);
+                numberlist.Add(2);
+                numberlist.Add(3);
+                numberlist.Add(3);
+                numberlist.Add(3);
+                numberlist.Add(4);
+                numberlist.Add(4);
+                numberlist.Add(4);
+                numberlist.Add(5);
+                numberlist.Add(5);
+                numberlist.Add(5);
+                numberlist.Add(6);
+                numberlist.Add(6);
+                numberlist.Add(6);
+                numberlist.Add(7);
+                numberlist.Add(7);
+                numberlist.Add(8);
+                numberlist.Add(8);
+                numberlist.Add(8);
+                numberlist.Add(9);
+                numberlist.Add(9);
+                numberlist.Add(9);
+                numberlist.Add(10);
+                numberlist.Add(10);
+                numberlist.Add(10);
+                numberlist.Add(11);
+                numberlist.Add(11);
+                numberlist.Add(11);
+                numberlist.Add(12);
+                numberlist.Add(12);
+            }
             shuffler.Shuffle(numberlist);
         }
         /// <summary>
