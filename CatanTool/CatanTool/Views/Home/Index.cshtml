@@ -7,19 +7,6 @@
 <div id="TestImage">
     <img height="1000" width="1000" src=@Model.Data>
 </div>
-<button onclick="(saveBase64AsFile(@Model.Data,Image))">smegma</button>
-
-<script>
-
-   function saveBase64AsFile(base64, fileName) {
-
-        var link = document.createElement("a");
-
-        link.setAttribute("href", base64);
-        link.setAttribute("download", fileName);
-        link.click();
-    }
-</script>
-
 <br />
+<input id="Download" class="btn btn-secondary" type="button" value="Download" onclick="saveData('CatanMap', '@Model.Data');" />
 

@@ -18,7 +18,7 @@ namespace BackEnd
         /// <returns>The map image as a string of bytes.</returns>
         public string DrawMap(IEnumerable<ITile> tiles)
         {
-            Bitmap drawing = new Bitmap(1000, 1000);
+            Bitmap drawing = new Bitmap(1025, 1000);
             using (Graphics graphic = Graphics.FromImage(drawing))
             {
                 graphic.Clear(Color.DarkCyan);
