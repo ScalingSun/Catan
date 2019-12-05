@@ -9,4 +9,12 @@
 </div>
 <br />
 <input id="Download" class="btn btn-secondary" type="button" value="Download" onclick="saveData('CatanMap', '@Model.Data');" />
+<input id="Export" class="btn btn-secondary" type="button" value="Export" onclick="exportData('@ViewBag.ExportJsonString');" />
+
+@*<form asp-action="View">
+    <div class="form-group">
+        <input type="submit" class="btn btn-secondary" value="Result" asp-controller="Home" asp-action="bruh" />
+    </div>
+</form>*@
+
 

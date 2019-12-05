@@ -62,6 +62,7 @@ var saveData = (function () {
         window.URL.revokeObjectURL(url);
     };
 }());
+
 function b64toBlob(dataURI) {
 
     var byteString = atob(dataURI.split(',')[1]);
@@ -72,4 +73,28 @@ function b64toBlob(dataURI) {
         ia[i] = byteString.charCodeAt(i);
     }
     return new Blob([ab], { type: 'image/png' });
+}
+
+function exportData(data) {
+    //const json = JSON.stringify(data, null, 2)
+    //fs = require("fs");
+
+    //Fs.writeFile("ooF.txt", json, (err) => {
+    //    if (err) {
+    //        console.error(err)
+    //        throw err
+    //    }
+
+    //    console.log('Saved data to file.')
+    //})
+    var a = document.createElement("a");
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
+    a.href = dataStr;
+    a.download = "bitchlasanga.json";
+    a.click();
+    //var dlAnchorElem = document.getElementById('downloadAnchorElem');
+    //dlAnchorElem.setAttribute("href", dataStr);
+    //dlAnchorElem.setAttribute("download", "scene.json");
+    //dlAnchorElem.click();
+
 }
