@@ -12,6 +12,7 @@ namespace BackEnd
         public Junction(List<ITile> ThreeTiles)
         {
             this.ThreeTiles = ThreeTiles;
+            CalculateScore();
         }
 
         public void CalculateScore()
@@ -31,7 +32,7 @@ namespace BackEnd
                 {
                     totalScore += MapInt(landTile.Value, 2, 6, 1, 5);
                 }
-                else
+                else if (landTile.Value >= 8)
                 {
                     totalScore += MapInt(landTile.Value, 8, 12, 5, 1);
                 }
@@ -59,7 +60,7 @@ namespace BackEnd
                     break;
                 }
 
-                output += $"{tile.Resource.Type.ToString()} {landTile.Value}";
+                output += $"{tile.Resource.Type.ToString()} {landTile.Value}, ";
             }
 
             output += ")";

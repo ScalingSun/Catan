@@ -24,7 +24,7 @@ namespace CatanUnitTest
             int expectedCount = 1;
 
             // Act
-            map.FindAllJunctions(tiles);
+            map.FindAllJunctions();
             int actual = map.Junctions.Count;
 
             // Assert
@@ -49,7 +49,7 @@ namespace CatanUnitTest
             int expectedCount = 0;
 
             // Act
-            map.FindAllJunctions(tiles);
+            map.FindAllJunctions();
             int actual = map.Junctions.Count;
 
             // Assert
@@ -76,7 +76,7 @@ namespace CatanUnitTest
             int expectedCount = 6;
 
             // Act
-            map.FindAllJunctions(tiles);
+            map.FindAllJunctions();
             int actual = map.Junctions.Count;
 
             // Assert
@@ -103,7 +103,7 @@ namespace CatanUnitTest
             int expectedCount = 6;
 
             // Act
-            map.FindAllJunctions(tiles);
+            map.FindAllJunctions();
             int actual = map.Junctions.Count;
 
             // Assert
@@ -154,7 +154,7 @@ namespace CatanUnitTest
             Map map = new Map(tiles);
 
             // Act
-            map.FindAllJunctions(tiles);
+            map.FindAllJunctions();
 
             List<Junction> junctions = map.Junctions;
 
