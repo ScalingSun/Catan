@@ -17,13 +17,13 @@ namespace BackEnd
         {
             JObject jo = JObject.Load(reader);
             //sea
-            if (jo["Resource"]["TypeSort"].Value<int>() == (int)EnumTypeSort.Sea)
+            if (jo["Resource"]["TypeSort"].Value<int>() == (int)EnumCoordinateType.Sea)
                 return jo.ToObject<WaterTileType>(serializer);
             //land
-            if (jo["Resource"]["TypeSort"].Value<int>() == (int)EnumTypeSort.Land)
+            if (jo["Resource"]["TypeSort"].Value<int>() == (int)EnumCoordinateType.Land)
                 return jo.ToObject<LandTileType>(serializer);
             //harbour
-            if (jo["Resource"]["TypeSort"].Value<int>() == (int)EnumTypeSort.Harbour)
+            if (jo["Resource"]["TypeSort"].Value<int>() == (int)EnumCoordinateType.Harbour)
                 return jo.ToObject<HarbourTileType>(serializer);
 
             return null;

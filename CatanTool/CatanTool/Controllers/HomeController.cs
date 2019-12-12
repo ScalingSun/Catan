@@ -23,17 +23,7 @@ namespace CatanTool.Controllers
 
             Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
             List<ITile> result = map.tiles;
-            Playboard pb = new Playboard(visualiser.DrawMap(result));
-            var obj = result;
-
-            List<object> xd = new List<object>();
-
-            foreach (ITile item in result)
-            {
-                xd.Add((object)item);
-            }
-
-            var obj2 = xd;
+            //var obj = result;
             //var serializer = new JsonSerializer();
             //serializer.Serialize(new JsonTextWriter(new StringWriter()), obj);
             //serializer.ContractResolver.
@@ -43,9 +33,10 @@ namespace CatanTool.Controllers
             //    TypeNameHandling = TypeNameHandling.All
             //};
             //var json = JsonConvert.SerializeObject(obj, indented, settings);
-            var json = JsonConvert.SerializeObject(obj2);
+
             //var json = new WebClient().DownloadString("url");
             //System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\test\oof.json", json);
+            var json = JsonConvert.SerializeObject(result);
             ViewBag.ExportJsonString = json;
             return View(pb);
         }
@@ -66,10 +57,8 @@ namespace CatanTool.Controllers
         {
 
             Map map = new Map(EnumMapType.small);
-            List<ITile> bruh = new List<ITile>();
-            ITile kek = map.tiles[0];
+            map.FindAllJunctions();
 
-            
             var files = Request.Form.Files;
 
             string fileContent = null;
@@ -85,7 +74,7 @@ namespace CatanTool.Controllers
             List<ITile> importedTiles = JsonConvert.DeserializeObject<List<ITile>>(result, new JsonSerializerSettings() { Converters = converters });
 
             Visualiser visualiser = new Visualiser();
-            Playboard pb = new Playboard(visualiser.DrawMap(importedTiles));
+            Playboard pb = new Playboard(visualiser.DrawMap(importedTiles), map.GetTopJunctions(topJunctionAmount));
 
             return View("Index", pb);
         }
@@ -99,6 +88,9 @@ namespace CatanTool.Controllers
 
             Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
 
+            var json = JsonConvert.SerializeObject(map.tiles);
+            ViewBag.ExportJsonString = json;
+
             return View("Index", pb);
         }
         public IActionResult OreForWoolMethod()
@@ -110,6 +102,9 @@ namespace CatanTool.Controllers
 
             Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
 
+            var json = JsonConvert.SerializeObject(map.tiles);
+            ViewBag.ExportJsonString = json;
+
             return View("Index", pb);
         }
         public IActionResult BigMap()
@@ -119,6 +114,9 @@ namespace CatanTool.Controllers
             map.FindAllJunctions();
 
             Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
+
+            var json = JsonConvert.SerializeObject(map.tiles);
+            ViewBag.ExportJsonString = json;
 
             return View("Index", pb);
         }

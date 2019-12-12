@@ -11,6 +11,7 @@ namespace BackEnd
         public int Yaxis { get; private set; }
         public EnumCoordinateType CoordinateType { get; private set; }
         public HarbourDirection Direction { get; private set; }
+        [JsonConstructor]
         public Coordinate(int Yaxis, int Xaxis, EnumCoordinateType coordinateType, HarbourDirection direction)
         {
             this.Yaxis = Yaxis;
