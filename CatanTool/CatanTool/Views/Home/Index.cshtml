@@ -4,13 +4,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div id="TestImage">
-    <img height="1000" width="1000" src=@Model.Data>
+<div id="CatantoolHolder">
+    <div id="ImageHolder">
+        <img id="PlayboardImage" height="1000" width="1000" src=@Model.Data>
+    </div>
+
+    <div id="TopJunctions">
+        <ol>
+            @foreach (var junction in Model.TopJunctions)
+            {
+                <li>
+                    @junction.ToString();
+                </li>
+            }
+        </ol>
+    </div>
 </div>
 <br />
 <input id="Download" class="btn btn-secondary" type="button" value="Download" onclick="saveData('CatanMap', '@Model.Data');" />
 <input id="Export" class="btn btn-secondary" type="button" value="Export" onclick="exportData('@ViewBag.ExportJsonString');" />
-
 @*<form asp-action="View">
     <div class="form-group">
         <input type="submit" class="btn btn-secondary" value="Result" asp-controller="Home" asp-action="bruh" />

@@ -8,7 +8,7 @@ namespace BackEnd
     {
         public WaterTileType(EnumType type) : base(type)
         {
-            TypeSort = EnumTypeSort.Sea;
+            TypeSort = EnumCoordinateType.Sea;
         }
     }
 }
