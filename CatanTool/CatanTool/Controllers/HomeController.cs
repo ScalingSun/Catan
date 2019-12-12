@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Text;
 using System;
+using Microsoft.AspNetCore.Http;
 
 namespace CatanTool.Controllers
 {
@@ -22,44 +23,69 @@ namespace CatanTool.Controllers
             Playboard pb = new Playboard(visualiser.DrawMap(result));
 
             var obj = result;
+
+            List<object> xd = new List<object>();
+
+            foreach (ITile item in result)
+            {
+                xd.Add((object)item);
+            }
+
+            var obj2 = xd;
             //var serializer = new JsonSerializer();
             //serializer.Serialize(new JsonTextWriter(new StringWriter()), obj);
             //serializer.ContractResolver.
-            var json = JsonConvert.SerializeObject(obj);
+            //var indented = Formatting.Indented;
+            //var settings = new JsonSerializerSettings()
+            //{
+            //    TypeNameHandling = TypeNameHandling.All
+            //};
+            //var json = JsonConvert.SerializeObject(obj, indented, settings);
+            var json = JsonConvert.SerializeObject(obj2);
             //var json = new WebClient().DownloadString("url");
             //System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\test\oof.json", json);
             ViewBag.ExportJsonString = json;
             return View(pb);
         }
 
-        public IActionResult bruh()
+        //public IActionResult ImportMap()
+        //{
+            
+        //}
+
+        public IActionResult ImportMap()
         {
-            Map map = new Map(EnumMapType.small);
-            List<ITile> result = new List<ITile>();
-            result = map.tiles;
-            var obj = result;
-            string json = JsonConvert.SerializeObject(obj);
-            //System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\test\oof.json", json);
-            //return View("Index");
-            // Create a string array with the lines of text
-            //string[] lines = { json };
-
-            //// Set a variable to the Documents path.
-            //string docPath =
-            //  Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            //// Write the string array to a new file named "WriteLines.txt".
-            //using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "ooF.txt")))
-            //{
-            //    foreach (string line in lines)
-            //        outputFile.WriteLine(line);
-            //}
-            string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            using (StreamWriter writer = new StreamWriter(Path.Combine(docPath, "ooF.txt")))
-            {
-                writer.Write(json);
-            }
+            
             return View("Index");
+        }
+
+        [HttpPost]
+        public ActionResult ImportData()
+        {
+
+            Map map = new Map(EnumMapType.small);
+            List<ITile> bruh = new List<ITile>();
+            ITile kek = map.tiles[0];
+
+            
+            var files = Request.Form.Files;
+
+            string fileContent = null;
+
+            using (var reader = new StreamReader(files[0].OpenReadStream()))
+            {
+                fileContent = reader.ReadToEnd();
+            }
+            string result = JsonConvert.DeserializeObject(fileContent).ToString();
+
+            JsonConverter[] converters = { new TileConverter(), new TileTypeConverter() };
+            
+            List<ITile> importedTiles = JsonConvert.DeserializeObject<List<ITile>>(result, new JsonSerializerSettings() { Converters = converters });
+
+            Visualiser visualiser = new Visualiser();
+            Playboard pb = new Playboard(visualiser.DrawMap(importedTiles));
+
+            return View("Index", pb);
         }
 
         public IActionResult ABCmethod()

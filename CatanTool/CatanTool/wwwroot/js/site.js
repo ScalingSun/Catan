@@ -2,7 +2,8 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
+var input = document.createElement('input');
+var contentMap = "";
 
 var arrLang = {
     'en': {
@@ -76,25 +77,52 @@ function b64toBlob(dataURI) {
 }
 
 function exportData(data) {
-    //const json = JSON.stringify(data, null, 2)
-    //fs = require("fs");
-
-    //Fs.writeFile("ooF.txt", json, (err) => {
-    //    if (err) {
-    //        console.error(err)
-    //        throw err
-    //    }
-
-    //    console.log('Saved data to file.')
-    //})
     var a = document.createElement("a");
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
     a.href = dataStr;
-    a.download = "bitchlasanga.json";
+    a.download = "ExportMap.json";
     a.click();
-    //var dlAnchorElem = document.getElementById('downloadAnchorElem');
-    //dlAnchorElem.setAttribute("href", dataStr);
-    //dlAnchorElem.setAttribute("download", "scene.json");
-    //dlAnchorElem.click();
-
 }
+
+function postfaggets() {
+    jQuery.ajax({
+        type: "POST",
+        url: "Home/CreateCover",
+        contentType: "text/plain",
+        data: contentMap,
+        success: function (data) {
+            alert(data);
+        },
+        failure: function (errMsg) {
+            alert(errMsg);
+        }
+    });
+}
+
+//function omegakek() {
+//    input.type = 'file';
+//    input.onchange = e => {
+
+//        // getting a hold of the file reference
+//        var file = e.target.files[0];
+
+//        // setting up the reader
+//        var reader = new FileReader();
+//        reader.readAsText(file, 'UTF-8');
+
+//        // here we tell the reader what to do when it's done reading...
+//        reader.onload = readerEvent => {
+//            var content = readerEvent.target.result; // this is the content!
+//            console.log(content);
+//        }
+//    }
+
+//    input.click();
+//    contentMap = content
+
+//}
+//function getFagget()
+//{
+//    return contentMap;
+//}
+

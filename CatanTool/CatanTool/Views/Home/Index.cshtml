@@ -2,19 +2,32 @@
 
 @{
     ViewData["Title"] = "Home Page";
+
 }
+
 
 <div id="TestImage">
     <img height="1000" width="1000" src=@Model.Data>
 </div>
 <br />
+
 <input id="Download" class="btn btn-secondary" type="button" value="Download" onclick="saveData('CatanMap', '@Model.Data');" />
 <input id="Export" class="btn btn-secondary" type="button" value="Export" onclick="exportData('@ViewBag.ExportJsonString');" />
 
-@*<form asp-action="View">
-    <div class="form-group">
-        <input type="submit" class="btn btn-secondary" value="Result" asp-controller="Home" asp-action="bruh" />
-    </div>
-</form>*@
+    <form method="post" asp-controller="Home" asp-action="ImportData" asp-antiforgery="true" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="col-md-4">
+                <input type="file" name="SubmitterPicture" id="SubmitterPicture" />
+            </div>
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" class="btn btn-default" value="Import" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
 
 
