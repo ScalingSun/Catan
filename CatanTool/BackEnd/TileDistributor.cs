@@ -24,7 +24,7 @@ namespace BackEnd
         /// Gets one tile, and removes it from its total list.
         /// </summary>
         /// <returns></returns>
-        public ITileType GetOneRandomTileTypeOfTypeSort(EnumTypeSort typeSort)
+        public ITileType GetOneRandomTileTypeOfTypeSort(EnumCoordinateType typeSort)
         {
             IList<ITileType> sortedListTileType = GetListTileTypesOfTypeSort(typeSort);
             Random R = new Random();
@@ -33,7 +33,7 @@ namespace BackEnd
             RemoveTile(result);
             return result;
         }
-        public IList<ITileType> GetListTileTypesOfTypeSort(EnumTypeSort typeSort)
+        public IList<ITileType> GetListTileTypesOfTypeSort(EnumCoordinateType typeSort)
         {
             List<ITileType> resultTileTypeList = new List<ITileType>();
             foreach (ITileType tileTypeInList in Tiletypes)

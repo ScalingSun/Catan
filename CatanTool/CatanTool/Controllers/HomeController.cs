@@ -13,15 +13,17 @@ namespace CatanTool.Controllers
 {
     public class HomeController : Controller
     {
+        private int topJunctionAmount = 3;
 
         public IActionResult Index()
         {
             Visualiser visualiser = new Visualiser();
             Map map = new Map(EnumMapType.small);
-            List<ITile> result = new List<ITile>();
-            result = map.tiles;
-            Playboard pb = new Playboard(visualiser.DrawMap(result));
+            map.FindAllJunctions();
 
+            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
+            List<ITile> result = map.tiles;
+            Playboard pb = new Playboard(visualiser.DrawMap(result));
             var obj = result;
 
             List<object> xd = new List<object>();
@@ -92,29 +94,33 @@ namespace CatanTool.Controllers
         {
             Visualiser visualiser = new Visualiser();
             Map map = new Map(EnumMapType.small);
-            List<ITile> result = new List<ITile>();
-            result.AddRange(map.createABCTiles());
-            Playboard pb = new Playboard(visualiser.DrawMap(result));
-            return View(pb);
+            map.tiles = map.createABCTiles();
+            map.FindAllJunctions();
+
+            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
+
+            return View("Index", pb);
         }
         public IActionResult OreForWoolMethod()
         {
             Visualiser visualiser = new Visualiser();
             Map map = new Map(EnumMapType.small);
-            List<ITile> result = new List<ITile>();
-            result.AddRange(map.createOreForWoolTiles());
-            Playboard pb = new Playboard(visualiser.DrawMap(result));
-            return View(pb);
+            map.tiles = map.createOreForWoolTiles();
+            map.FindAllJunctions();
+
+            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
+
+            return View("Index", pb);
         }
         public IActionResult BigMap()
         {
             Visualiser visualiser = new Visualiser();
             Map map = new Map(EnumMapType.big);
-            List<ITile> result = new List<ITile>();
-            result = map.tiles;
-            Playboard pb = new Playboard(visualiser.DrawMap(result));
+            map.FindAllJunctions();
 
-            return View(pb);
+            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
+
+            return View("Index", pb);
         }
     }
 }

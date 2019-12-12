@@ -5,9 +5,21 @@
 
 }
 
+<div id="CatantoolHolder">
+    <div id="ImageHolder">
+        <img id="PlayboardImage" height="1000" width="1000" src=@Model.Data>
+    </div>
 
-<div id="TestImage">
-    <img height="1000" width="1000" src=@Model.Data>
+    <div id="TopJunctions">
+        <ol>
+            @foreach (var junction in Model.TopJunctions)
+            {
+                <li>
+                    @junction.ToString();
+                </li>
+            }
+        </ol>
+    </div>
 </div>
 <br />
 
@@ -29,5 +41,10 @@
 
 
 
+@*<form asp-action="View">
+    <div class="form-group">
+        <input type="submit" class="btn btn-secondary" value="Result" asp-controller="Home" asp-action="bruh" />
+    </div>
+</form>*@
 
 

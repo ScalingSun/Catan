@@ -20,7 +20,7 @@ namespace BackEnd
     {
         small = 7, big = 8
     }
-    public enum EnumTypeSort
+    public enum EnumCoordinateType
     {
         Sea = 1,
         Land = 2,
