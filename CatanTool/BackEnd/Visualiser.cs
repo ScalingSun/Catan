@@ -60,7 +60,7 @@ namespace BackEnd
             const int yMove = 105;
 
             // Change the starting point of the map according to an amount of pixels.
-            hexagonPoints = ChangeMapStartPoint(10, drawing.Width / 2 - 2 * yMove, hexagonPoints);
+            hexagonPoints = ChangeMapStartPoint(50, drawing.Width / 2 - 2 * yMove, hexagonPoints);
 
             // Change position of where the hexagon will be drawn, according to a tile's coordinates.
             if (tile.Coordinate == null)
@@ -87,21 +87,17 @@ namespace BackEnd
                 // If the tile is a LandTile, draw a number on top of it.
                 if (tile is LandTile landTile)
                 {
-                    if (landTile.Value == 7)
+                    if (landTile.Value != 7)
                     {
-                        graphic.DrawString("", new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Coordinate.Yaxis));
-                    }
-                    else
-                    {
-                        graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 10, 10 + yMove / 2 + yMove * tile.Coordinate.Yaxis));
+                        graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 10, 50 + yMove / 2 + yMove * tile.Coordinate.Yaxis));
                     }
                 }
 
                 if (tile is HarbourTile)
                 {
                     fillColour = GetResourceBrush(tile.Resource.Type);
-                    graphic.FillEllipse(fillColour, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
-                    graphic.DrawEllipse(linePen, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
+                    graphic.FillEllipse(fillColour, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, 40 + yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
+                    graphic.DrawEllipse(linePen, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, 40 + yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
                 }
             }
         }

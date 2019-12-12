@@ -4,20 +4,25 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div id="TestImage">
-    <img height="1000" width="1000" src=@Model.Data>
+<div id="CatantoolHolder">
+    <div id="ImageHolder">
+        <img id="PlayboardImage" height="1000" width="1000" src=@Model.Data>
+    </div>
+
+    <div id="TopJunctions">
+        <ol>
+            @foreach (var junction in Model.TopJunctions)
+            {
+                <li>
+                    @junction.ToString();
+                </li>
+            }
+        </ol>
+    </div>
 </div>
+
+
 <button onclick="(saveBase64AsFile(@Model.Data,Image))">smegma</button>
-
-<ol>
-    @foreach (var junction in Model.TopJunctions)
-    {
-        <li>
-            @junction.ToString();
-        </li>
-    }
-</ol>
-
 
 <script>
 
