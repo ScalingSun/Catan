@@ -8,7 +8,6 @@ namespace BackEnd
     {
         public EnumType Type { get; private set; }
         public EnumCoordinateType TypeSort { get; protected set; }
-
         public TileType(EnumType type)
         {
             Type = type;

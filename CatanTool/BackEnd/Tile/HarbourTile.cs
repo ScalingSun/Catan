@@ -15,21 +15,5 @@ namespace BackEnd
             Coordinate = coordinate;
             Resource = resource;
         }
-        public HarbourTile(Coordinate coordinate, LandTileType resource, int value)
-        {
-            Coordinate = coordinate;
-            Resource = resource;
-        }
-        [JsonConstructor]
-        public HarbourTile(Coordinate coordinate, HarbourTileType resource, int value)
-        {
-            Coordinate = coordinate;
-            Resource = resource;
-        }
-        public HarbourTile(Coordinate coordinate, WaterTileType resource, int value)
-        {
-            Coordinate = coordinate;
-            Resource = resource;
-        }
     }
 }

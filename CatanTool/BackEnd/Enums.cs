@@ -4,14 +4,6 @@ using System.Text;
 
 namespace BackEnd
 {
-    //public enum EnumLandTileType
-    //{
-    //    Desert,Ore,Wheat,Meadow,Wood,Stone
-    //}
-    //public enum EnumHarbourTileType
-    //{
-    //    OneToThreeHarbour, TwoMeadowHarbour, TwoWoodHarbour, TwoOreHarbour, TwoWheatHarbour, TwoStoneHarbour
-    //}
     public enum EnumType
     {
         Desert, Ore, Wheat, Meadow, Wood, Stone, OneToThreeHarbour, TwoMeadowHarbour, TwoWoodHarbour, TwoOreHarbour, TwoWheatHarbour, TwoStoneHarbour, Water

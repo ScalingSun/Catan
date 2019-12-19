@@ -16,21 +16,6 @@ namespace BackEnd
             Coordinate = coordinate;
             Resource = new WaterTileType(EnumType.Water);
         }
-        public WaterTile(Coordinate coordinate, LandTileType resource, int value)
-        {
-            Coordinate = coordinate;
-            Resource = resource;
-        }
-        public WaterTile(Coordinate coordinate, HarbourTileType resource, int value)
-        {
-            Coordinate = coordinate;
-            Resource = resource;
-        }
-        [JsonConstructor]
-        public WaterTile(Coordinate coordinate, WaterTileType resource, int value)
-        {
-            Coordinate = coordinate;
-            Resource = resource;
-        }
+
     }
 }

@@ -13,58 +13,40 @@ namespace BackEnd
             Shuffler shuffler = new Shuffler();
             if (maptype == EnumMapType.small)
             {
-                numberlist.Add(2);
-                numberlist.Add(3);
-                numberlist.Add(3);
-                numberlist.Add(4);
-                numberlist.Add(4);
-                numberlist.Add(5);
-                numberlist.Add(5);
-                numberlist.Add(6);
-                numberlist.Add(6);
-                numberlist.Add(7);
-                numberlist.Add(8);
-                numberlist.Add(8);
-                numberlist.Add(9);
-                numberlist.Add(9);
-                numberlist.Add(10);
-                numberlist.Add(10);
-                numberlist.Add(11);
-                numberlist.Add(11);
                 numberlist.Add(12);
+                numberlist.Add(2);
+                numberlist.Add(7);
+                for (int i = 0; i < 2; i++)
+                {
+                    numberlist.Add(3);
+                    numberlist.Add(4);
+                    numberlist.Add(5);
+                    numberlist.Add(6);
+                    numberlist.Add(8);
+                    numberlist.Add(9);
+                    numberlist.Add(10);
+                    numberlist.Add(11);
+                }
             }
             if(maptype == EnumMapType.big)
             {
-                numberlist.Add(2);
-                numberlist.Add(2);
-                numberlist.Add(3);
-                numberlist.Add(3);
-                numberlist.Add(3);
-                numberlist.Add(4);
-                numberlist.Add(4);
-                numberlist.Add(4);
-                numberlist.Add(5);
-                numberlist.Add(5);
-                numberlist.Add(5);
-                numberlist.Add(6);
-                numberlist.Add(6);
-                numberlist.Add(6);
-                numberlist.Add(7);
-                numberlist.Add(7);
-                numberlist.Add(8);
-                numberlist.Add(8);
-                numberlist.Add(8);
-                numberlist.Add(9);
-                numberlist.Add(9);
-                numberlist.Add(9);
-                numberlist.Add(10);
-                numberlist.Add(10);
-                numberlist.Add(10);
-                numberlist.Add(11);
-                numberlist.Add(11);
-                numberlist.Add(11);
-                numberlist.Add(12);
-                numberlist.Add(12);
+                for (int i = 0; i < 2; i++)
+                {
+                    numberlist.Add(2);
+                    numberlist.Add(12);
+                    numberlist.Add(7);
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    numberlist.Add(3);
+                    numberlist.Add(4);
+                    numberlist.Add(5);
+                    numberlist.Add(6);
+                    numberlist.Add(8);
+                    numberlist.Add(9);
+                    numberlist.Add(10);
+                    numberlist.Add(11);
+                }
             }
             shuffler.Shuffle(numberlist);
         }
@@ -78,23 +60,6 @@ namespace BackEnd
             result.AddRange(numberlist);
             numberlist.Clear();
             return result;
-        }
-        public int GetNumber(List<int> omitNumberList)
-        {
-            int ValueNumber = 0;
-            foreach (int number in numberlist)
-            {
-                foreach (int omitNumber in omitNumberList)
-                {
-                    if (number != omitNumber)
-                    {
-                        ValueNumber = number;
-                        numberlist.Remove(number);
-                        return ValueNumber;
-                    }
-                }
-            }
-            return ValueNumber;
         }
         /// <summary>
         /// get a list of numbers, and removes it from further use.

@@ -47,8 +47,6 @@ namespace BackEnd
 
         public Coordinate GetOneRandomCoordinate(EnumCoordinateType type)
         {
-            Random random = new Random();
-
             Shuffler shuffle = new Shuffler();
             List<Coordinate> list = GetListCoordinates(type);
             Coordinate result = null;

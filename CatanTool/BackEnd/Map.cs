@@ -6,12 +6,12 @@ namespace BackEnd
 {
     public class Map
     {
-        EnumMapType maptype;
-        public List<Junction> Junctions;
-        public List<ITile> tiles;
-        TileDistributor TileDistributor;
-        NumberDistributor NumberDistributor;
-        CoordsDistributor CoordsDistributor;
+        readonly EnumMapType maptype;
+        public List<Junction> Junctions { get; private set; }
+        public List<ITile> tiles { get; private set; }
+        public TileDistributor TileDistributor { get; private set; }
+        public NumberDistributor NumberDistributor { get; private set; }
+        public CoordsDistributor CoordsDistributor { get; private set; }
         public Map(EnumMapType maptype)
         {
             tiles = new List<ITile>();
@@ -21,6 +21,7 @@ namespace BackEnd
             NumberDistributor = new NumberDistributor(maptype);
             CoordsDistributor = new CoordsDistributor(maptype);
             createtiles(maptype);
+            FindAllJunctions();
         }
         public Map(List<ITile> inTiles)
         {
@@ -109,7 +110,7 @@ namespace BackEnd
             return false;
         }
 
-        public bool AdjacentsTilesHas6or8(List<ITile> AdjacentsTiles)
+        private bool AdjacentsTilesHas6or8(List<ITile> AdjacentsTiles)
         {
             foreach (LandTile landTile in AdjacentsTiles)
             {
@@ -125,7 +126,7 @@ namespace BackEnd
             return false;
         }
 
-        public List<ITile> GetAdjacentTiles(Coordinate Coordinate)
+        private List<ITile> GetAdjacentTiles(Coordinate Coordinate)
         {
             List<ITile> junctionTiles = new List<ITile>();
             foreach (ITile tile in tiles)
@@ -144,17 +145,6 @@ namespace BackEnd
                 }                                                                                                                                                                       
             }
             return junctionTiles;
-        }
-        public ITile GetTile(Coordinate coordinate)
-        {
-            foreach (ITile tile in tiles)
-            {
-                if (tile.Coordinate == coordinate)
-                {
-                    return tile;
-                }
-            }
-            return null;
         }
         private void CreateLandTilesFor6And8()
         {
@@ -205,7 +195,7 @@ namespace BackEnd
             ITile desertTile = new LandTile(coordinate, tileType, number);
             return desertTile;
         }
-        public List<ITile> CreateHarbourTiles()
+        private List<ITile> CreateHarbourTiles()
         {
             List<ITile> HarbourTiles = new List<ITile>();
 
@@ -219,7 +209,7 @@ namespace BackEnd
             return HarbourTiles;
 
         }
-        public List<ITile> CreateSeaTiles()
+        private List<ITile> CreateSeaTiles()
         {
             List<ITile> SeaTiles = new List<ITile>();
             IList<ITileType> tileTypes = TileDistributor.GetListTileTypesOfTypeSort(EnumCoordinateType.Sea);
@@ -232,7 +222,7 @@ namespace BackEnd
             return SeaTiles;
 
         }
-        public void createtiles(EnumMapType type)
+        private void createtiles(EnumMapType type)
         {
             if(type == EnumMapType.small)
             {
@@ -249,7 +239,7 @@ namespace BackEnd
             tiles.AddRange(CreateSeaTiles());
         }
 
-        public List<ITile> createABCTiles()
+        public void createABCTiles() // TODO ADD HARBOURDIRECTION
         {
             List<ITile> result = new List<ITile>();
             result.Add(new HarbourTile(new Coordinate(0,0, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.TwoStoneHarbour))); result.Add(new WaterTile(new Coordinate(0,1, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new HarbourTile(new Coordinate(0,2, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.TwoWoodHarbour))); result.Add(new WaterTile(new Coordinate(0,3, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water)));
@@ -259,10 +249,10 @@ namespace BackEnd
             result.Add(new HarbourTile(new Coordinate(4, 1, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.TwoWheatHarbour))); result.Add(new LandTile(new Coordinate(4,2, EnumCoordinateType.Land), new LandTileType(EnumType.Stone), 3)); result.Add(new LandTile(new Coordinate(4, 3, EnumCoordinateType.Land), new LandTileType(EnumType.Wood), 4)); result.Add(new LandTile(new Coordinate(4, 4, EnumCoordinateType.Land), new LandTileType(EnumType.Stone), 5)); result.Add(new LandTile(new Coordinate(4, 5, EnumCoordinateType.Land), new LandTileType(EnumType.Ore), 12)); result.Add(new WaterTile(new Coordinate(4, 6, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water)));
             result.Add(new WaterTile(new Coordinate(5, 2, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new LandTile(new Coordinate(5, 3, EnumCoordinateType.Land), new LandTileType(EnumType.Meadow), 8)); result.Add(new LandTile(new Coordinate(5, 4, EnumCoordinateType.Land), new LandTileType(EnumType.Wheat), 10)); result.Add(new LandTile(new Coordinate(5,5, EnumCoordinateType.Land), new LandTileType(EnumType.Meadow), 9)); result.Add(new HarbourTile(new Coordinate(5, 6, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.OneToThreeHarbour)));
             result.Add(new HarbourTile(new Coordinate(6, 3, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.TwoMeadowHarbour))); result.Add(new WaterTile(new Coordinate(6, 4, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new HarbourTile(new Coordinate(6,5, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.OneToThreeHarbour))); result.Add(new WaterTile(new Coordinate(6, 6, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water)));
-            return result;
+            tiles = result;
         }
 
-        public List<ITile> createOreForWoolTiles()
+        public void createOreForWoolTiles()
         {
             List<ITile> result = new List<ITile>();
             result.Add(new WaterTile(new Coordinate(0,0, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new HarbourTile(new Coordinate(0,1, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.TwoOreHarbour))); result.Add(new WaterTile(new Coordinate(0,2, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new HarbourTile(new Coordinate(0,3, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.OneToThreeHarbour)));
@@ -272,7 +262,7 @@ namespace BackEnd
             result.Add(new WaterTile(new Coordinate(4,1, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new LandTile(new Coordinate(4,2, EnumCoordinateType.Land), new LandTileType(EnumType.Meadow), 8)); result.Add(new LandTile(new Coordinate(4,3, EnumCoordinateType.Land), new LandTileType(EnumType.Wood), 5)); result.Add(new LandTile(new Coordinate(4,4, EnumCoordinateType.Land), new LandTileType(EnumType.Meadow), 9)); result.Add(new LandTile(new Coordinate(4,5, EnumCoordinateType.Land), new LandTileType(EnumType.Wood), 10)); result.Add(new HarbourTile(new Coordinate(4, 6, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.OneToThreeHarbour)));
             result.Add(new HarbourTile(new Coordinate(5, 2, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.TwoStoneHarbour))); result.Add(new LandTile(new Coordinate(5, 3, EnumCoordinateType.Land), new LandTileType(EnumType.Wheat), 11)); result.Add(new LandTile(new Coordinate(5,4, EnumCoordinateType.Land), new LandTileType(EnumType.Stone), 4)); result.Add(new LandTile(new Coordinate(5,5, EnumCoordinateType.Land), new LandTileType(EnumType.Wheat), 3)); result.Add(new WaterTile(new Coordinate(5,6, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water)));
             result.Add(new WaterTile(new Coordinate(6, 3, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new HarbourTile(new Coordinate(6,4, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.OneToThreeHarbour))); result.Add(new WaterTile(new Coordinate(6,5, EnumCoordinateType.Sea), new WaterTileType(EnumType.Water))); result.Add(new HarbourTile(new Coordinate(6,6, EnumCoordinateType.Harbour), new HarbourTileType(EnumType.TwoWoodHarbour)));
-            return result;
+            tiles = result;
         }
     }
 }

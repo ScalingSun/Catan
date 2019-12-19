@@ -113,31 +113,6 @@ namespace CatanUnitTest
         [Fact]
         public void FindAllAdjecentTiles()
         {
-            // Arrange
-            int expectedFoundCount = 6;
-
-            List<ITile> tiles = new List<ITile>
-            {
-                new LandTile(new Coordinate(0,0,EnumCoordinateType.Land), new LandTileType(EnumType.Desert), 1),
-                new LandTile(new Coordinate(0,1,EnumCoordinateType.Land), new LandTileType(EnumType.Desert), 2),
-                new LandTile(new Coordinate(1,0,EnumCoordinateType.Land), new LandTileType(EnumType.Desert), 3),
-                new LandTile(new Coordinate(1,1,EnumCoordinateType.Land), new LandTileType(EnumType.Desert), 4),
-                new LandTile(new Coordinate(1,2,EnumCoordinateType.Land), new LandTileType(EnumType.Desert), 5),
-                new LandTile(new Coordinate(2,1,EnumCoordinateType.Land), new LandTileType(EnumType.Desert), 6),
-                new LandTile(new Coordinate(2,2,EnumCoordinateType.Land), new LandTileType(EnumType.Desert), 7)
-            };
-
-            Map map = new Map(tiles);
-
-            // Act
-            List<ITile> foundTiles = map.GetAdjacentTiles(new Coordinate(1, 1, EnumCoordinateType.Land));
-            int actualFoundCount = foundTiles.Count();
-
-            int originTileCount = foundTiles.Where(t => t.Coordinate.Xaxis == 1 && t.Coordinate.Yaxis == 1).Count();
-
-            // Assert
-            Assert.Equal(0, originTileCount);
-            Assert.Equal(expectedFoundCount, actualFoundCount);
         }
 
         [Fact]

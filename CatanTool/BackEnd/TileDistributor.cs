@@ -30,7 +30,7 @@ namespace BackEnd
             Random R = new Random();
             int randomnumber = R.Next(0, sortedListTileType.Count -1);
             ITileType result = sortedListTileType[randomnumber];
-            RemoveTile(result);
+            Tiletypes.Remove(result);
             return result;
         }
         public IList<ITileType> GetListTileTypesOfTypeSort(EnumCoordinateType typeSort)
@@ -59,11 +59,6 @@ namespace BackEnd
             }
             return result;
         }
-        private void RemoveTile(ITileType tileType)
-        {
-            Tiletypes.Remove(tileType);
-        }
-
         private void shuffleTileList()//this could be useless.
         {
             Shuffler shuffler = new Shuffler();
