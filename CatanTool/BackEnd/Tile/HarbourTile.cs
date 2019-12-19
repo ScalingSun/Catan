@@ -9,11 +9,13 @@ namespace BackEnd
     {
         public Coordinate Coordinate { get; private set; }
         public ITileType Resource { get; private set; }
+        public EnumHarbourDirection Direction { get; private set; }
 
-        public HarbourTile(Coordinate coordinate, ITileType resource)
+        public HarbourTile(Coordinate coordinate, ITileType resource, EnumHarbourDirection direction)
         {
             Coordinate = coordinate;
             Resource = resource;
+            Direction = direction;
         }
         public HarbourTile(Coordinate coordinate, LandTileType resource, int value)
         {
