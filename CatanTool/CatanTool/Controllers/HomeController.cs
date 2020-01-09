@@ -21,7 +21,7 @@ namespace CatanTool.Controllers
             Map map = new Map(EnumMapType.small);
             map.FindAllJunctions();
 
-            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles, map.Junctions), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = new Playboard(visualiser.DrawMap(map, topJunctionAmount), map.GetTopJunctions(topJunctionAmount));
             List<ITile> result = map.tiles;
             //var obj = result;
             //var serializer = new JsonSerializer();
@@ -72,7 +72,7 @@ namespace CatanTool.Controllers
             map.FindAllJunctions();
 
             Visualiser visualiser = new Visualiser();
-            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles, map.Junctions), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = new Playboard(visualiser.DrawMap(map, topJunctionAmount), map.GetTopJunctions(topJunctionAmount));
 
             return View("Index", pb);
         }
@@ -84,7 +84,7 @@ namespace CatanTool.Controllers
             map.tiles = map.createABCTiles();
             map.FindAllJunctions();
 
-            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles, map.Junctions), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = new Playboard(visualiser.DrawMap(map, topJunctionAmount), map.GetTopJunctions(topJunctionAmount));
 
             var json = JsonConvert.SerializeObject(map.tiles);
             ViewBag.ExportJsonString = json;
@@ -98,7 +98,7 @@ namespace CatanTool.Controllers
             map.tiles = map.createOreForWoolTiles();
             map.FindAllJunctions();
 
-            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles, map.Junctions), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = new Playboard(visualiser.DrawMap(map, topJunctionAmount), map.GetTopJunctions(topJunctionAmount));
 
             var json = JsonConvert.SerializeObject(map.tiles);
             ViewBag.ExportJsonString = json;
@@ -111,7 +111,7 @@ namespace CatanTool.Controllers
             Map map = new Map(EnumMapType.big);
             map.FindAllJunctions();
 
-            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles, map.Junctions), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = new Playboard(visualiser.DrawMap(map, topJunctionAmount), map.GetTopJunctions(topJunctionAmount));
 
             var json = JsonConvert.SerializeObject(map.tiles);
             ViewBag.ExportJsonString = json;

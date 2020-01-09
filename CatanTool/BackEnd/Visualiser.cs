@@ -10,13 +10,26 @@ namespace BackEnd
 {
     public class Visualiser
     {
-        public string Data { get; set; }
+        private readonly Point[] BaseHexagonPoints = new Point[]
+            {
+                new Point(60, 0),
+                new Point(120, 30),
+                new Point(120, 105),
+                new Point(60, 135),
+                new Point(0, 105),
+                new Point(0, 30),
+                new Point(60, 0)
+            };
+
+        // Translation lengths for new hexagons
+        private readonly int xMove = 120;
+        private readonly int yMove = 105;
 
         /// <summary>
         /// Draw all tiles onto a bitmap image.
         /// </summary>
         /// <returns>The map image as a string of bytes.</returns>
-        public string DrawMap(IEnumerable<ITile> tiles)
+        public string DrawMap(Map map, int topJunctionAmount)
         {
             Bitmap drawing = new Bitmap(1025, 1000);
             using (Graphics graphic = Graphics.FromImage(drawing))
@@ -24,12 +37,64 @@ namespace BackEnd
                 graphic.Clear(Color.DarkCyan);
             }
 
-            foreach (ITile tile in tiles)
+            foreach (ITile tile in map.tiles)
             {
                 DrawHex(tile, drawing);
             }
 
+            foreach(Junction junction in map.GetTopJunctions(topJunctionAmount))
+            {
+                DrawJunction(junction, drawing);
+            }
+
             return BitmapToByteString(drawing);
+        }
+
+        private void DrawJunction(Junction junction, Bitmap drawing)
+        {
+            Point[] tile0Points = GetTileCoordinates(junction.ThreeTiles[0], drawing);
+            Point[] tile1Points = GetTileCoordinates(junction.ThreeTiles[1], drawing);
+            Point[] tile2Points = GetTileCoordinates(junction.ThreeTiles[2], drawing);
+
+            foreach(Point point0 in tile0Points)
+            {
+                foreach (Point point1 in tile1Points)
+                {
+                    foreach (Point point2 in tile2Points)
+                    {
+                        if (point0.X == point1.X && point0.X == point2.X && point0.Y == point1.Y && point0.Y == point2.Y)
+                        {
+                            using (Graphics graphic = Graphics.FromImage(drawing))
+                            {
+                                graphic.FillEllipse(Brushes.White, point0.X - 10, point0.Y - 10, 20, 20);
+                                graphic.DrawEllipse(new Pen(Color.Black, 2f), point0.X - 10, point0.Y - 10, 20, 20);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private Point[] GetTileCoordinates(ITile tile, Bitmap drawing)
+        {
+            Point[] hexagonPoints = new Point[]
+            {
+                new Point(60, 0),
+                new Point(120, 30),
+                new Point(120, 105),
+                new Point(60, 135),
+                new Point(0, 105),
+                new Point(0, 30),
+                new Point(60, 0)
+            }; ;
+
+            // Change the starting point of the map according to an amount of pixels.
+            hexagonPoints = ChangeMapStartPoint(50, drawing.Width / 2 - 2 * yMove, hexagonPoints);
+
+            // Change position of where the hexagon will be drawn, according to a tile's coordinates.
+            hexagonPoints = ChangeHexagonPoint(tile.Coordinate.Yaxis, tile.Coordinate.Xaxis, yMove, xMove, hexagonPoints);
+
+            return hexagonPoints;
         }
 
         /// <summary>
@@ -50,10 +115,6 @@ namespace BackEnd
                 new Point(0, 30),
                 new Point(60, 0)
             };
-
-            // Translation lengths for new hexagons
-            const int xMove = 120;
-            const int yMove = 105;
 
             // Change the starting point of the map according to an amount of pixels.
             hexagonPoints = ChangeMapStartPoint(50, drawing.Width / 2 - 2 * yMove, hexagonPoints);
