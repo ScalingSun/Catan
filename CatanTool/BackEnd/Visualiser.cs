@@ -39,21 +39,17 @@ namespace BackEnd
         /// <param name="drawing">The map the tile is being drawn on.</param>
         private void DrawHex(ITile tile, Bitmap drawing)
         {
-            if (tile.Resource.TypeSort == EnumCoordinateType.Sea)
-            {
-
-            }
             // Base points for a hexagon.
             Point[] hexagonPoints = new Point[]
-                {
-                    new Point(60, 0),
-                    new Point(120, 30),
-                    new Point(120, 105),
-                    new Point(60, 135),
-                    new Point(0, 105),
-                    new Point(0, 30),
-                    new Point(60, 0)
-                };
+            {
+                new Point(60, 0),
+                new Point(120, 30),
+                new Point(120, 105),
+                new Point(60, 135),
+                new Point(0, 105),
+                new Point(0, 30),
+                new Point(60, 0)
+            };
 
             // Translation lengths for new hexagons
             const int xMove = 120;
@@ -63,10 +59,6 @@ namespace BackEnd
             hexagonPoints = ChangeMapStartPoint(50, drawing.Width / 2 - 2 * yMove, hexagonPoints);
 
             // Change position of where the hexagon will be drawn, according to a tile's coordinates.
-            if (tile.Coordinate == null)
-            {
-
-            }
             hexagonPoints = ChangeHexagonPoint(tile.Coordinate.Yaxis, tile.Coordinate.Xaxis, yMove, xMove, hexagonPoints);
 
             // Set colour of the fill and lines.
@@ -98,8 +90,54 @@ namespace BackEnd
                     fillColour = GetResourceBrush(tile.Resource.Type);
                     graphic.FillEllipse(fillColour, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, 40 + yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
                     graphic.DrawEllipse(linePen, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, 40 + yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
+
+                    DrawHarbourLine(graphic, tile, xMove, yMove, hexagonPoints);
                 }
             }
+        }
+
+        private void DrawHarbourLine(Graphics graphic, ITile tile, int xMove, int yMove, Point[] hexagonPoints)
+        {
+            Point[] linePoints = GetLinePoints(tile, hexagonPoints);
+            
+            graphic.DrawLine(new Pen(Color.White, 15f), linePoints[0], linePoints[1]);
+        }
+
+        private Point[] GetLinePoints(ITile tile, Point[] hexagonPoints)
+        {
+            Point[] points = new Point[2];
+
+            if (tile.Coordinate.Direction == EnumHarbourDirection.topright)
+            {
+                points[0] = hexagonPoints[0];
+                points[1] = hexagonPoints[1];
+            }
+            if (tile.Coordinate.Direction == EnumHarbourDirection.right)
+            {
+                points[0] = hexagonPoints[1];
+                points[1] = hexagonPoints[2];
+            }
+            if (tile.Coordinate.Direction == EnumHarbourDirection.downright)
+            {
+                points[0] = hexagonPoints[2];
+                points[1] = hexagonPoints[3];
+            }
+            if (tile.Coordinate.Direction == EnumHarbourDirection.downleft)
+            {
+                points[0] = hexagonPoints[3];
+                points[1] = hexagonPoints[4];
+            }
+            if (tile.Coordinate.Direction == EnumHarbourDirection.left)
+            {
+                points[0] = hexagonPoints[4];
+                points[1] = hexagonPoints[5];
+            }
+            if (tile.Coordinate.Direction == EnumHarbourDirection.topleft)
+            {
+                points[0] = hexagonPoints[5];
+                points[1] = hexagonPoints[6];
+            }
+            return points;
         }
 
         /// <summary>
