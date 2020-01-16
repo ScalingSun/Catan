@@ -23,6 +23,10 @@ namespace CatanTool.Controllers
 
             Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
             List<ITile> result = map.tiles;
+
+            HttpContext.Session.SetString("stringurl", $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}");
+
+            // get the previous url and store it with view model
             //var obj = result;
             //var serializer = new JsonSerializer();
             //serializer.Serialize(new JsonTextWriter(new StringWriter()), obj);
@@ -36,6 +40,8 @@ namespace CatanTool.Controllers
 
             //var json = new WebClient().DownloadString("url");
             //System.IO.File.WriteAllText(@"C:\Users\Mike\Documents\test\oof.json", json);
+            //TempData.Put("pbData", map.tiles);
+            //Playboard lol = TempData.Get<Playboard>("pbData");
             var json = JsonConvert.SerializeObject(result);
             ViewBag.ExportJsonString = json;
             return View(pb);
@@ -55,28 +61,37 @@ namespace CatanTool.Controllers
         [HttpPost]
         public ActionResult ImportData()
         {
-
-            Map map = new Map(EnumMapType.small);
-            map.FindAllJunctions();
-
             var files = Request.Form.Files;
 
             string fileContent = null;
 
-            using (var reader = new StreamReader(files[0].OpenReadStream()))
-            {
-                fileContent = reader.ReadToEnd();
-            }
-            string result = JsonConvert.DeserializeObject(fileContent).ToString();
-
-            JsonConverter[] converters = { new TileConverter(), new TileTypeConverter() };
-            
-            List<ITile> importedTiles = JsonConvert.DeserializeObject<List<ITile>>(result, new JsonSerializerSettings() { Converters = converters });
-
             Visualiser visualiser = new Visualiser();
-            Playboard pb = new Playboard(visualiser.DrawMap(importedTiles), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = null;
+            if (files.Count > 0)
+            {
+                Map map = new Map(EnumMapType.small);
+                map.FindAllJunctions();
 
-            return View("Index", pb);
+                using (var reader = new StreamReader(files[0].OpenReadStream()))
+                {
+                    fileContent = reader.ReadToEnd();
+                }
+                string result = JsonConvert.DeserializeObject(fileContent).ToString();
+
+                JsonConverter[] converters = { new TileConverter(), new TileTypeConverter() };
+
+                List<ITile> importedTiles = JsonConvert.DeserializeObject<List<ITile>>(result, new JsonSerializerSettings() { Converters = converters });
+
+                pb = new Playboard(visualiser.DrawMap(importedTiles), map.GetTopJunctions(topJunctionAmount));
+                return View("Index", pb);
+            }
+
+            //List<ITile> kek = TempData.Get<List<ITile>>("pbData");
+            //Map map2 = new Map(EnumMapType.small);
+            //map2.tiles = kek;
+            //pb = new Playboard(visualiser.DrawMap(map2.tiles), map2.GetTopJunctions(topJunctionAmount));
+            //Playboard lol = (Playboard)TempData["pbData"];
+            return Redirect(HttpContext.Session.GetString("stringurl"));
         }
 
         public IActionResult ABCmethod()

@@ -55,10 +55,12 @@ var saveData = (function () {
     var a = document.createElement("a");
     document.body.appendChild(a);
     a.style = "display: none";
-    return function (fileName, base64string) {
+    return function (base64string) {
+        var today = new Date();
+        var time = 'CatanMap'+'_'+ today.toLocaleString();
         url = window.URL.createObjectURL(b64toBlob(base64string));
         a.href = url;
-        a.download = fileName;
+        a.download = time;
         a.click();
         window.URL.revokeObjectURL(url);
     };
@@ -77,27 +79,24 @@ function b64toBlob(dataURI) {
 }
 
 function exportData(data) {
+    var today = new Date();
+    var time = 'ExportCatan'+'_'+today.toLocaleString()+'.json';
+   
     var a = document.createElement("a");
     var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data));
     a.href = dataStr;
-    a.download = "ExportMap.json";
+    a.download = time;
     a.click();
 }
 
-function postfaggets() {
-    jQuery.ajax({
-        type: "POST",
-        url: "Home/CreateCover",
-        contentType: "text/plain",
-        data: contentMap,
-        success: function (data) {
-            alert(data);
-        },
-        failure: function (errMsg) {
-            alert(errMsg);
-        }
-    });
-}
+//function enableButton() {
+//    if (document.getElementById("importFile").files.length > 0) {
+//        var nigger = document.getElementById("Import").disabled = false;
+//    }
+//}
+//if (document.getElementById("importFile").files.length == 0) {
+//    console.log("no files selected");
+//}
 
 //function omegakek() {
 //    input.type = 'file';
