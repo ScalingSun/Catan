@@ -17,11 +17,11 @@ namespace CatanTool.Controllers
 
         public IActionResult Index()
         {
-            Visualiser visualiser = new Visualiser();
             Map map = new Map(EnumMapType.small);
             map.FindAllJunctions();
+            Visualiser visualiser = new Visualiser(map);
 
-            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = new Playboard(visualiser.DrawMap(topJunctionAmount), map.GetTopJunctions(topJunctionAmount));
             List<ITile> result = map.tiles;
 
             HttpContext.Session.SetString("stringurl", $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}");
@@ -71,7 +71,6 @@ namespace CatanTool.Controllers
             {
                 Map map = new Map(EnumMapType.small);
                 map.FindAllJunctions();
-
                 using (var reader = new StreamReader(files[0].OpenReadStream()))
                 {
                     fileContent = reader.ReadToEnd();
@@ -96,12 +95,12 @@ namespace CatanTool.Controllers
 
         public IActionResult ABCmethod()
         {
-            Visualiser visualiser = new Visualiser();
             Map map = new Map(EnumMapType.small);
             map.tiles = map.createABCTiles();
             map.FindAllJunctions();
+            Visualiser visualiser = new Visualiser(map);
 
-            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = new Playboard(visualiser.DrawMap(topJunctionAmount), map.GetTopJunctions(topJunctionAmount));
 
             var json = JsonConvert.SerializeObject(map.tiles);
             ViewBag.ExportJsonString = json;
@@ -110,12 +109,13 @@ namespace CatanTool.Controllers
         }
         public IActionResult OreForWoolMethod()
         {
-            Visualiser visualiser = new Visualiser();
+            
             Map map = new Map(EnumMapType.small);
             map.tiles = map.createOreForWoolTiles();
             map.FindAllJunctions();
+            Visualiser visualiser = new Visualiser(map);
 
-            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = new Playboard(visualiser.DrawMap(topJunctionAmount), map.GetTopJunctions(topJunctionAmount));
 
             var json = JsonConvert.SerializeObject(map.tiles);
             ViewBag.ExportJsonString = json;
@@ -124,11 +124,11 @@ namespace CatanTool.Controllers
         }
         public IActionResult BigMap()
         {
-            Visualiser visualiser = new Visualiser();
             Map map = new Map(EnumMapType.big);
             map.FindAllJunctions();
+            Visualiser visualiser = new Visualiser(map);
 
-            Playboard pb = new Playboard(visualiser.DrawMap(map.tiles), map.GetTopJunctions(topJunctionAmount));
+            Playboard pb = new Playboard(visualiser.DrawMap(topJunctionAmount), map.GetTopJunctions(topJunctionAmount));
 
             var json = JsonConvert.SerializeObject(map.tiles);
             ViewBag.ExportJsonString = json;
