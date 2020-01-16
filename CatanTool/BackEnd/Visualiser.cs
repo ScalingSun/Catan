@@ -10,6 +10,12 @@ namespace BackEnd
 {
     public class Visualiser
     {
+        private Map map;
+        public Visualiser(Map map)
+        {
+            this.map = map;
+        }
+
         private readonly Point[] BaseHexagonPoints = new Point[]
             {
                 new Point(60, 0),
@@ -29,7 +35,7 @@ namespace BackEnd
         /// Draw all tiles onto a bitmap image.
         /// </summary>
         /// <returns>The map image as a string of bytes.</returns>
-        public string DrawMap(Map map, int topJunctionAmount)
+        public string DrawMap(int topJunctionAmount)
         {
             Bitmap drawing = new Bitmap(1025, 1000);
             using (Graphics graphic = Graphics.FromImage(drawing))
@@ -89,7 +95,7 @@ namespace BackEnd
             }; ;
 
             // Change the starting point of the map according to an amount of pixels.
-            hexagonPoints = ChangeMapStartPoint(50, drawing.Width / 2 - 2 * yMove, hexagonPoints);
+            hexagonPoints = ChangeMapStartPoint(drawing.Height, drawing.Width, hexagonPoints);
 
             // Change position of where the hexagon will be drawn, according to a tile's coordinates.
             hexagonPoints = ChangeHexagonPoint(tile.Coordinate.Yaxis, tile.Coordinate.Xaxis, yMove, xMove, hexagonPoints);
@@ -117,7 +123,7 @@ namespace BackEnd
             };
 
             // Change the starting point of the map according to an amount of pixels.
-            hexagonPoints = ChangeMapStartPoint(50, drawing.Width / 2 - 2 * yMove, hexagonPoints);
+            hexagonPoints = ChangeMapStartPoint(drawing.Height, drawing.Width, hexagonPoints);
 
             // Change position of where the hexagon will be drawn, according to a tile's coordinates.
             hexagonPoints = ChangeHexagonPoint(tile.Coordinate.Yaxis, tile.Coordinate.Xaxis, yMove, xMove, hexagonPoints);
@@ -142,15 +148,19 @@ namespace BackEnd
                 {
                     if (landTile.Value != 7)
                     {
-                        graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 10, 50 + yMove / 2 + yMove * tile.Coordinate.Yaxis));
+                        graphic.DrawString(landTile.Value.ToString(), new Font("Arial", 20f, FontStyle.Bold), Brushes.Black, new Point(hexagonPoints[0].X - 10, hexagonPoints[1].Y - 10 + (hexagonPoints[2].Y - hexagonPoints[1].Y) / 2));
                     }
                 }
 
                 if (tile is HarbourTile)
                 {
                     fillColour = GetResourceBrush(tile.Resource.Type);
-                    graphic.FillEllipse(fillColour, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, 40 + yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
-                    graphic.DrawEllipse(linePen, xMove / 2 + drawing.Width / 2 - 2 * yMove + xMove * tile.Coordinate.Xaxis - xMove / 2 * tile.Coordinate.Yaxis - 25, 40 + yMove / 2 + yMove * tile.Coordinate.Yaxis, 50, 50);
+                    int ellipseDiameter = 50; 
+                    int ellipseX = hexagonPoints[0].X - ellipseDiameter/2;
+                    int ellipseY = hexagonPoints[1].Y + (hexagonPoints[2].Y - hexagonPoints[1].Y) / 2 - ellipseDiameter / 2;
+
+                    graphic.FillEllipse(fillColour, ellipseX, ellipseY, ellipseDiameter, ellipseDiameter);
+                    graphic.DrawEllipse(linePen, ellipseX, ellipseY, ellipseDiameter, ellipseDiameter);
 
                     DrawHarbourLine(graphic, tile, xMove, yMove, hexagonPoints);
                 }
@@ -227,8 +237,26 @@ namespace BackEnd
         /// <param name="xPixels">The horizontal translation of the starting point.</param>
         /// <param name="hexagonPoints">The base array of hexagon points.</param>
         /// <returns>The array of translated points of a hexagon.</returns>
-        private Point[] ChangeMapStartPoint(int yPixels, int xPixels, Point[] hexagonPoints)
+        private Point[] ChangeMapStartPoint(int graphicsHeight, int graphicsWidth, Point[] hexagonPoints)
         {
+            int yDistance = hexagonPoints[4].Y - hexagonPoints[0].Y;
+            int xPixels = 0;
+            int yPixels = 0;
+
+            if (map.maptype == EnumMapType.small)
+            {
+                xPixels = graphicsWidth - xMove * 7;
+                yPixels = graphicsHeight - yDistance * 7;
+            }
+            else if (map.maptype == EnumMapType.big)
+            {
+                xPixels = graphicsWidth - xMove * 8;
+                yPixels = graphicsHeight - yDistance * 9;
+            }
+
+            xPixels += xPixels / 2;
+            yPixels -= yPixels / 2 + hexagonPoints[1].Y;
+
             for (int i = 0; i < hexagonPoints.Length; i++)
             {
                 hexagonPoints[i] = new Point(hexagonPoints[i].X + xPixels, hexagonPoints[i].Y + yPixels);

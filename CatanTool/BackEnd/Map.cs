@@ -6,7 +6,7 @@ namespace BackEnd
 {
     public class Map
     {
-        EnumMapType maptype;
+        public EnumMapType maptype;
         public List<Junction> Junctions;
         public List<ITile> tiles;
         TileDistributor TileDistributor;
