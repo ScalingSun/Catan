@@ -16,7 +16,7 @@ var arrLang = {
         'random': 'totaal random',
         'ABC': 'ABC Methode',
         'Oreforwool': 'Oreforwool Methode',
-        'Dwonload' : 'Download'
+        'Download' : 'Download'
     }
 };
 
@@ -38,14 +38,14 @@ function Changelanguage() {
 }
 
 function SetNLlanguage() {
-    if (sessionStorage.getItem('lang') === 'en') {
+    if (sessionStorage.getItem('lang') != 'nl') {
         sessionStorage.setItem('lang', 'nl');
     }
     Changelanguage();
 }
 
 function SetENlanguage() {
-    if (sessionStorage.getItem('lang') === 'nl') {
+    if (sessionStorage.getItem('lang') != 'en') {
         sessionStorage.setItem('lang', 'en');
     }
     Changelanguage();
