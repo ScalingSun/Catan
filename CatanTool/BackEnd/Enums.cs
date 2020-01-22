@@ -26,8 +26,8 @@ namespace BackEnd
         Land = 2,
         Harbour = 3,
     }
-    public enum HarbourDirection
+    public enum EnumHarbourDirection
     {
-        left, topleft,top,topright,right,downright,down,downleft
+        left, topleft,top,topright,right,downright,down,downleft, none
     }
 }

@@ -5,6 +5,8 @@
 
 }
 
+
+
 <div id="CatantoolHolder">
     <div id="ImageHolder">
         <img id="PlayboardImage" height="1000" width="1000" src=@Model.Data>
@@ -23,28 +25,41 @@
 </div>
 <br />
 
-<input id="Download" class="btn btn-secondary" type="button" value="Download image" onclick="saveData('CatanMap', '@Model.Data');" />
-<input id="Export" class="btn btn-secondary" type="button" value="Export layout" onclick="exportData('@ViewBag.ExportJsonString');" />
+<div class="btn-group">
 
-    <form method="post" asp-controller="Home" asp-action="ImportData" asp-antiforgery="true" enctype="multipart/form-data">
+
+
+</div>
+<input style="margin-bottom:15px" id="Download" class="btn btn-secondary" type="button" value="Download image" onclick="saveData('@Model.Data');" />
+<br />
+<input style="margin-bottom:15px" id="Export" class="btn btn-secondary" type="button" value="Export layout" onclick="exportData('@ViewBag.ExportJsonString');" />
+<form method="post" asp-controller="Home" asp-action="ImportData" asp-antiforgery="true" enctype="multipart/form-data">
+    <div class="form-group">
+        @*<div class="col-md-4">*@
+        <input type="file" accept=".json" id="importFile" name="SubmitterPicture" />
+        @*<input type="button" class="btn btn-secondary" onclick="enableButton();">*@
+        @*</div>*@
         <div class="form-group">
-            <div class="col-md-4">
-                <input type="file" name="SubmitterPicture" id="SubmitterPicture" />
-            </div>
-            <div class="form-group">
-                <div class="col-md-10">
-                    <input type="submit" class="btn btn-default" value="Import layout" />
-                </div>
-            </div>
+            @*<div class="col-md-10">*@
+            <input style="margin-bottom: 15px" id="Import" type="submit" class="btn btn-secondary" value="Import layout" />
+            @*</div>*@
         </div>
-    </form>
+    </div>
+</form>
+@{
+    if (ViewBag.ErrorImportMessage != null)
+    {
+        <h2>@ViewBag.ErrorImportMessage</h2>
+    }
+
+}
 
 
 
 @*<form asp-action="View">
-    <div class="form-group">
-        <input type="submit" class="btn btn-secondary" value="Result" asp-controller="Home" asp-action="bruh" />
-    </div>
-</form>*@
+        <div class="form-group">
+            <input type="submit" class="btn btn-secondary" value="Result" asp-controller="Home" asp-action="bruh" />
+        </div>
+    </form>*@
 
 
