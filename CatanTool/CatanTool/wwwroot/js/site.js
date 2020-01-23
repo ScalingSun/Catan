@@ -10,13 +10,15 @@ var arrLang = {
         'random': 'total random',
         'ABC': 'ABC Method',
         'Oreforwool': 'Oreforwool Method',
-        'Download' : 'Download'
+        'Download': 'Download',
+        'BigMap': 'Large Map'
     },
     'nl': {
         'random': 'totaal random',
         'ABC': 'ABC Methode',
         'Oreforwool': 'Oreforwool Methode',
-        'Download' : 'Download'
+        'Download': 'Download',
+        'BigMap' : 'Grote Map'
     }
 };
 
